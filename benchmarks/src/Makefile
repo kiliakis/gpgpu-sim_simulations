@@ -2,19 +2,19 @@
 CUDA_VERSION=$(shell nvcc --version | grep release | sed -re 's/.*release ([0-9]+\.[0-9]+).*/\1/')
 CUDA_VERSION_MAJOR=$(shell nvcc --version | grep release | sed -re 's/.*release ([0-9]+)\..*/\1/')
 BINDIR=$(shell pwd)/../bin/$(CUDA_VERSION)
-BINSUBDIR=release
+BINSUBDIR=debug
 SETENV=export BINDIR=$(BINDIR); \
    	export BINSUBDIR=$(BINSUBDIR); \
    	export ROOTOBJDIR=obj_$(CUDA_VERSION);\
 
 ifeq ($(shell test $(CUDA_VERSION_MAJOR) -gt 4; echo $$?),0)
-	MAKE_ARGS := GENCODE_SM10=
+	MAKE_ARGS := GENCODE_SM10= D_DEBUG=1
 else
-	MAKE_ARGS := 
+	MAKE_ARGS := D_DEBUG=1
 endif
 
 check_environment:
-	bash ../data_dirs/get_data.sh
+	 # bash ../data_dirs/get_data.sh
 	 @if [ ! -n "$(CUDA_INSTALL_PATH)" ]; then \
 		echo "ERROR *** CUDA_INSTALL_PATH not set; please see README.ISPASS-2009"; \
 		exit 201; \
