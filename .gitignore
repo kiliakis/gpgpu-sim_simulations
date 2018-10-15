@@ -6,4 +6,5 @@ sim_run_*
 *.a
 *.la
 *.out
+*.ptx
 *.__afs*

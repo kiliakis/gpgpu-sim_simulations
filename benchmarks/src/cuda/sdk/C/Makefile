@@ -72,3 +72,7 @@ clean: tidy $(addsuffix .ph_clean,$(PROJECTS))
 
 clobber: clean $(addsuffix .ph_clobber,$(PROJECTS))
 	+@$(MAKE) -C common clobber
+
+install: 
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp $< $(DESTDIR)$(PREFIX)
