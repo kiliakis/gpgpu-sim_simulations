@@ -1,2 +1,9 @@
 bin/
 sim_run_*
+.pyc
+.o
+.so
+.a
+.la
+.out
+.__afs*
