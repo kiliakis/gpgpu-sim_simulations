@@ -1,16 +1,13 @@
-
 CUDA_VERSION=$(shell nvcc --version | grep release | sed -re 's/.*release ([0-9]+\.[0-9]+).*/\1/')
 CUDA_VERSION_MAJOR=$(shell nvcc --version | grep release | sed -re 's/.*release ([0-9]+)\..*/\1/')
 BINDIR=$(shell pwd)/../bin/$(CUDA_VERSION)
-BINSUBDIR=debug
+BINSUBDIR?=release
 SETENV=export BINDIR=$(BINDIR); \
    	export BINSUBDIR=$(BINSUBDIR); \
    	export ROOTOBJDIR=obj_$(CUDA_VERSION);\
 
 ifeq ($(shell test $(CUDA_VERSION_MAJOR) -gt 4; echo $$?),0)
-	MAKE_ARGS := GENCODE_SM10= D_DEBUG=1
-else
-	MAKE_ARGS := D_DEBUG=1
+	MAKE_ARGS := GENCODE_SM10= 
 endif
 
 check_environment:
@@ -70,6 +67,17 @@ clean_rodinia_2.0-ft:
 	$(SETENV) make $(MAKE_ARGS) clean -C cuda/rodinia/2.0-ft/srad
 	$(SETENV) make $(MAKE_ARGS) clean -C cuda/rodinia/2.0-ft/streamcluster
 
-all: check_environment rodinia_2.0-ft
-cleanall: clean_rodinia_2.0-ft
+###################################################################################################3
+# GPU Computing SDK Version 4.1.15
+###################################################################################################3
+sdk: 
+	$(SETENV) make $(MAKE_ARGS) all -C cuda/sdk/
+
+clean_sdk:
+	$(SETENV) make $(MAKE_ARGS) clean -C cuda/sdk/
+
+all: check_environment rodinia_2.0-ft sdk
+
+cleanall: clean_rodinia_2.0-ft clean_sdk
 	../data_dirs/clean_data.sh
+	make clean -C cuda/sdk
