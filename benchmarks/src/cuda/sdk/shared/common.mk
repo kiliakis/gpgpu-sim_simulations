@@ -55,6 +55,7 @@ ROOTOBJDIR ?= obj
 LIBDIR     := ./lib
 COMMONDIR  := $(ROOTDIR)/../C/common
 SHAREDDIR  := $(ROOTDIR)/../shared/
+EXESUFFIX  ?= -sdk-4.1.15
 
 
 # Compilers
@@ -334,7 +335,7 @@ else
 		CFLAGS			+= -D__DEVICE_EMULATION__
 	endif
 	TARGETDIR := $(BINDIR)/$(BINSUBDIR)
-	TARGET    := $(TARGETDIR)/$(EXECUTABLE)
+	TARGET    := $(TARGETDIR)/$(EXECUTABLE)$(EXESUFFIX)
 	LINKLINE  = $(LINK) -o $(TARGET) $(OBJS) $(LIB)
 endif
 

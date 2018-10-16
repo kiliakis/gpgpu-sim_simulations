@@ -56,6 +56,8 @@ ROOTOBJDIR ?= obj
 LIBDIR     := $(ROOTDIR)/lib
 COMMONDIR  := $(ROOTDIR)/../common
 SHAREDDIR  := $(ROOTDIR)/../../shared
+EXESUFFIX  ?= -sdk-4.1.15
+
 
 # Compilers
 NVCC       := $(CUDA_INSTALL_PATH)/bin/nvcc 
@@ -341,7 +343,7 @@ else
 		LIB += -lcutil_$(LIB_ARCH)$(LIBSUFFIX) -lshrutil_$(LIB_ARCH)$(LIBSUFFIX)
 	endif
 	TARGETDIR := $(BINDIR)/$(BINSUBDIR)
-	TARGET    := $(TARGETDIR)/$(EXECUTABLE)
+	TARGET    := $(TARGETDIR)/$(EXECUTABLE)$(EXESUFFIX)
 	LINKLINE  = $(LINK) -o $(TARGET) $(OBJS) $(LIB)
 endif
 

@@ -53,6 +53,7 @@ OCLBINDIR    ?= $(OCLROOTDIR)/bin/
 BINDIR       ?= $(OCLBINDIR)/$(OSLOWER)
 OCLLIBDIR    := $(OCLCOMMONDIR)/lib
 INCDIR	     ?= .
+EXESUFFIX  ?= -sdk-4.1.15
 
 # Compilers
 CXX        := g++
@@ -207,7 +208,7 @@ ifneq ($(STATIC_LIB),)
 else
 	LIB += -loclUtil_$(LIB_ARCH)$(LIBSUFFIX) -lshrutil_$(LIB_ARCH)$(LIBSUFFIX)
 	TARGETDIR := $(BINDIR)/$(BINSUBDIR)
-	TARGET    := $(TARGETDIR)/$(EXECUTABLE)
+	TARGET    := $(TARGETDIR)/$(EXECUTABLE)$(EXESUFFIX)
 	LINKLINE  = $(LINK) -o $(TARGET) $(OBJS) $(LIB)
 endif
 
