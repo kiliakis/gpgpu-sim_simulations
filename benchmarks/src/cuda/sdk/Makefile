@@ -17,9 +17,12 @@ clobber:
 	+@$(MAKE) -C ./CUDALibraries clobber
 	+@$(MAKE) -C ./OpenCL clobber
 
-.PHONY: install
-install: 
-	+@$(MAKE) -C ./C install
+# .PHONY: install
+# install: 
+# 	+@$(MAKE) -C ./C install
+# 	+@$(MAKE) -C ./CUDALibraries install
+# 	+@$(MAKE) -C ./shared install
+# 	+@$(MAKE) -C ./OpenCL install
 
 # .PHONY: uninstall
 # uninstall:
