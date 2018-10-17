@@ -13,6 +13,7 @@ from futures import Future
 
 from error import ErrorType
 
+
 class Benchmark(object):
     """A benchmark.
 
@@ -29,7 +30,7 @@ class Benchmark(object):
       impls       A dictionary of benchmark source implementations.
       datas       A dictionary of data sets used to run the benchmark."""
 
-    def __init__(self, name, path = None, impls = [], datasets = [],
+    def __init__(self, name, path=None, impls=[], datasets=[],
                  description=None, invalid=None):
         self.name = name
         self.invalid = invalid
@@ -47,12 +48,11 @@ class Benchmark(object):
         datadir = globals.datadir.getChildByName(name)
         descr = process.read_description_file(bmkdir)
 
-
         try:
             # Scan implementations of the benchmark
             impls = [BenchImpl.createFromDir(impl)
                      for impl in process.scan_for_benchmark_versions(bmkdir)]
-            
+
             # Scan data sets of the benchmark
             datas = [BenchDataset.createFromDir(data)
                      for data in process.scan_for_benchmark_datasets(datadir)]
@@ -61,9 +61,9 @@ class Benchmark(object):
             return Benchmark(name, bmkdir.getPath(), impls, datas, descr)
         finally:
             pass
-        #except Exception, e:
+        # except Exception, e:
         #    return Benchmark(name, invalid=e)
-        
+
     createFromName = staticmethod(createFromName)
 
     def describe(self):
@@ -72,7 +72,7 @@ class Benchmark(object):
         if self.invalid:
             return "Error in benchmark:\n" + str(self.invalid)
 
-        if self.descr  is None:
+        if self.descr is None:
             header = "Benchmark '" + self.name + "'"
         else:
             header = self.descr
@@ -88,6 +88,7 @@ class Benchmark(object):
 
     instance_check = staticmethod(instance_check)
 
+
 class BenchImpl(object):
     """An implementation of a benchmark."""
 
@@ -95,7 +96,7 @@ class BenchImpl(object):
         if not isinstance(dir, pbf.Directory):
             raise TypeEror, "dir must be a directory"
 
-        self.name = dir.getName() 
+        self.name = dir.getName()
         self.dir = dir
         self.descr = description
 
@@ -112,7 +113,7 @@ class BenchImpl(object):
 
     def makefile(self, benchmark, target=None, action=None, platform=None, opt={}):
         """Run this implementation's makefile."""
-        
+
         self.platform = platform
         Benchmark.instance_check(benchmark)
 
@@ -120,28 +121,30 @@ class BenchImpl(object):
             srcdir = path.join('src', self.name)
             builddir = path.join('build', self.name)
 
-            if self.platform == None: platform = 'default'
-            else: platform = self.platform
+            if self.platform == None:
+                platform = 'default'
+            else:
+                platform = self.platform
 
-            env={'SRCDIR':srcdir,
-                 'BUILDDIR':builddir + '_' + platform,
-                 'BIN':path.join(builddir+'_'+platform,benchmark.name),
-                 'PARBOIL_ROOT':globals.root,
-                 'PLATFORM':platform,
-                 'BUILD':self.name}
+            env = {'SRCDIR': srcdir,
+                   'BUILDDIR': builddir + '_' + platform,
+                   'BIN': path.join(builddir+'_'+platform, benchmark.name),
+                   'PARBOIL_ROOT': globals.root,
+                   'PLATFORM': platform,
+                   'BUILD': self.name}
             env.update(opt)
 
             mkfile = globals.root + os.sep + 'common' + os.sep + 'mk'
 
             # Run the makefile to build the benchmark
             ret = process.makefile(target=target,
-				    action=action,
-                                    filepath=path.join(mkfile, "Makefile"),
-                                    env=env)
+                                   action=action,
+                                   filepath=path.join(mkfile, "Makefile"),
+                                   env=env)
             if ret == True:
-              return ErrorType.Success
+                return ErrorType.Success
             else:
-              return ErrorType.CompileError
+                return ErrorType.CompileError
 
         # Go to the benchmark directory before building
         return process.with_path(benchmark.path, perform)
@@ -174,7 +177,8 @@ class BenchImpl(object):
             rc = self.build(benchmark, platform)
 
             # Stop if 'make' failed
-            if rc != ErrorType.Success: return rc
+            if rc != ErrorType.Success:
+                return rc
 
         def perform():
             if self.platform == None:
@@ -187,14 +191,16 @@ class BenchImpl(object):
             #args = [exename] + extra_opts + dataset.getCommandLineArguments(benchmark, do_output)
             #rc = process.spawnwaitv(exename, args)
 
-            args = extra_opts + dataset.getCommandLineArguments(benchmark, do_output)
+            args = extra_opts + \
+                dataset.getCommandLineArguments(benchmark, do_output)
             args = reduce(lambda x, y: x + ' ' + y, args)
 
             ###
             try:
-              rc = self.makefile(benchmark, action='run', platform=platform, opt={"ARGS":args})
+                rc = self.makefile(benchmark, action='run',
+                                   platform=platform, opt={"ARGS": args})
             except KeyboardInterrupt:
-              rc = ErrorType.Killed
+                rc = ErrorType.Killed
 
             # Program exited with error?
             # if rc != 0: return ErrorType.RunFailed
@@ -216,7 +222,8 @@ class BenchImpl(object):
             rc = self.build(benchmark, platform)
 
             # Stop if 'make' failed
-            if rc != ErrorType.Success: return rc
+            if rc != ErrorType.Success:
+                return rc
 
         def perform():
             if self.platform == None:
@@ -225,14 +232,17 @@ class BenchImpl(object):
                 platform = self.platform
 
             # Run the program
-            args = extra_opts + dataset.getCommandLineArguments(benchmark, do_output)
+            args = extra_opts + \
+                dataset.getCommandLineArguments(benchmark, do_output)
             args = reduce(lambda x, y: x + ' ' + y, args)
 
             ###
-            rc = self.makefile(benchmark, action='debug', platform=platform, opt={"ARGS":args})
+            rc = self.makefile(benchmark, action='debug',
+                               platform=platform, opt={"ARGS": args})
 
             # Program exited with error?
-            if rc != 0: return ErrorType.RunFailed
+            if rc != 0:
+                return ErrorType.RunFailed
             return ErrorType.Success
 
         return process.with_path(benchmark.path, perform)
@@ -253,13 +263,15 @@ class BenchImpl(object):
                                     compare, reference_file, output_file)
 
             # Program exited with error, or mismatch in output?
-            if rc != 0: return False
+            if rc != 0:
+                return False
             return True
 
         return process.with_path(benchmark.path, perform)
 
     def __str__(self):
         return "<BenchImpl '" + self.name + "'>"
+
 
 class BenchDataset(object):
     """Data sets for running a benchmark."""
@@ -285,13 +297,12 @@ class BenchDataset(object):
         output_dir = dir.getChildByName('output')
         #benchmark_path = path.join(globals.root, 'benchmarks', name)
 
-        
         def check_default_input_files():
             # This function is called to see if the input file set
             # guessed by scanning the input directory can be used
             if invalid_default_input_files:
                 raise ValueError, "Cannot infer command line when there are multiple input files in a data set\n(Fix by adding an input DESCRIPTION file)"
-                
+
         if input_dir.exists():
             input_descr = process.read_description_file(input_dir)
             input_files = input_dir.scanAndReturnNames()
@@ -345,13 +356,15 @@ class BenchDataset(object):
         are the same.  The output path is not the path where the reference
         output is stored."""
 
-        rundir = globals.benchdir.getChildByName(benchmark.name).getChildByName('run')
+        rundir = globals.benchdir.getChildByName(
+            benchmark.name).getChildByName('run')
 
         if rundir.getChildByName(self.name) is None:
             datasetpath = path.join(rundir.getPath(), self.name)
             filepath = path.join(datasetpath, self.outFiles[0])
-            rundir.addChild(pbf.Directory(datasetpath, [pbf.File(filepath, False)]))
-        
+            rundir.addChild(pbf.Directory(
+                datasetpath, [pbf.File(filepath, False)]))
+
         return rundir.getChildByName(self.name)
 
     def getTemporaryOutputFile(self, benchmark):
@@ -361,7 +374,6 @@ class BenchDataset(object):
         is stored."""
 
         return self.getTemporaryOutputDir(benchmark).getChildByName(self.outFiles[0])
-
 
     def getReferenceOutputPath(self):
         """Get the name of the reference file, to which the output of a
@@ -379,7 +391,7 @@ class BenchDataset(object):
 
         # Add arguments to pass input files to the benchmark
         if self.inFiles:
-            in_files = ",".join([path.join(self.dir.getPath(),'input', x)
+            in_files = ",".join([path.join(self.dir.getPath(), 'input', x)
                                  for x in self.inFiles])
             args.append("-i")
             args.append(in_files)
@@ -403,6 +415,7 @@ class BenchDataset(object):
     def __str__(self):
         return "<BenchData '" + self.name + "'>"
 
+
 def unpack_dataset_description(descr, parameters=[], input_files=[]):
     """Read information from the raw contents of a data set description
     file.  Optional 'parameters' and 'input_files' arguments may be
@@ -414,11 +427,12 @@ def unpack_dataset_description(descr, parameters=[], input_files=[]):
     # Initialize these to default empty strings
     parameter_text = None
     input_file_text = None
-    
+
     # Scan the description line by line
     for line in descr.split('\n'):
         m = split_at_colon.match(line)
-        if m is None: continue
+        if m is None:
+            continue
 
         # This line appears to declare something that should be
         # interpreted
@@ -431,17 +445,21 @@ def unpack_dataset_description(descr, parameters=[], input_files=[]):
 
     # Split the strings into (possibly) multiple arguments, discarding
     # whitespace
-    if parameter_text is not None: parameters = parameter_text.split()
-    if input_file_text is not None: input_files = input_file_text.split()
+    if parameter_text is not None:
+        parameters = parameter_text.split()
+    if input_file_text is not None:
+        input_files = input_file_text.split()
     return (parameters, input_files, descr)
+
 
 def version_scanner():
     """version_scanner() -> (path -> pbf.Directory) 
-    
+
     Return a function to find benchmark versions in the src 
     directory for the benchmark."""
 
     return lambda x: pbf.scan_file(x, True, lambda y: pbf.Directory(y), ['.svn'])
+
 
 def find_benchmarks():
     """Find benchmarks in the repository.  The benchmarks are
@@ -460,7 +478,8 @@ def find_benchmarks():
         globals.benchdir.scan()
         globals.datadir.scan()
         for bmkdir in globals.benchdir.getScannedChildren():
-            bmk = Future(lambda bmkdir=bmkdir: Benchmark.createFromName(bmkdir.getName()))
+            bmk = Future(
+                lambda bmkdir=bmkdir: Benchmark.createFromName(bmkdir.getName()))
             db[bmkdir.getName()] = bmk
     except OSError, e:
         sys.stdout.write("Benchmark directory not found!\n\n")
@@ -468,11 +487,13 @@ def find_benchmarks():
 
     return db
 
+
 def _desc_file(dpath):
     """_desc_file(dpath) 
     Returns a pbf.File for an optional description file in the directory dpath."""
 
-    return pbf.File(path.join(dpath,'DESCRIPTION'), False)
+    return pbf.File(path.join(dpath, 'DESCRIPTION'), False)
+
 
 def benchmark_scanner():
     """benchmark_scanner -> (path -> pbf.Directory)
@@ -481,15 +502,16 @@ def benchmark_scanner():
     for a benchmark represented by that name."""
 
     def create_benchmark_dir(dpath):
-        expected = [pbf.Directory(path.join(dpath,'src'), [], version_scanner()),
-                    pbf.Directory(path.join(dpath,'tools'), 
-                              [pbf.File(path.join(dpath,'compare-output'))]),
-                    pbf.Directory(path.join(dpath,'build'), must_exist=False),
-                    pbf.Directory(path.join(dpath,'run'), must_exist=False),
+        expected = [pbf.Directory(path.join(dpath, 'src'), [], version_scanner()),
+                    pbf.Directory(path.join(dpath, 'tools'),
+                                  [pbf.File(path.join(dpath, 'compare-output'))]),
+                    pbf.Directory(path.join(dpath, 'build'), must_exist=False),
+                    pbf.Directory(path.join(dpath, 'run'), must_exist=False),
                     _desc_file(dpath)]
         return pbf.Directory(dpath, expected)
 
-    return lambda x: pbf.scan_file(x, True, create_benchmark_dir,['_darcs','.svn'])
+    return lambda x: pbf.scan_file(x, True, create_benchmark_dir, ['_darcs', '.svn'])
+
 
 def dataset_scanner():
     """dataset_scanner -> (path -> pbf.Directory)
@@ -498,15 +520,16 @@ def dataset_scanner():
     for a folder containing datasets for the benchmark of the same name."""
 
     def create_dataset_dir(dpath):
-        simple_scan = lambda x: pbf.scan_file(x)
-        expected = [pbf.Directory(path.join(dpath,'input'), 
-                              [_desc_file(path.join(dpath,'input'))], simple_scan),
-                    pbf.Directory(path.join(dpath,'output'), [], simple_scan),
+        def simple_scan(x): return pbf.scan_file(x)
+        expected = [pbf.Directory(path.join(dpath, 'input'),
+                                  [_desc_file(path.join(dpath, 'input'))], simple_scan),
+                    pbf.Directory(path.join(dpath, 'output'), [], simple_scan),
                     _desc_file(dpath)]
 
         return pbf.Directory(dpath, expected)
 
     return lambda x: pbf.scan_file(x, True, create_dataset_dir, ['.svn', '_darcs'])
+
 
 def dataset_repo_scanner():
     """dataset_repo_scanner -> (path -> pbf.Directory)
@@ -514,6 +537,7 @@ def dataset_repo_scanner():
     Returns a function which will scan a filename and create a pbf.Directory 
     for a folder containing a dataset repository for parboil benchmarks."""
 
-    benchmark_dsets_scanner = lambda x: pbf.Directory(x, [], dataset_scanner())
+    def benchmark_dsets_scanner(x): return pbf.Directory(
+        x, [], dataset_scanner())
 
     return lambda x: pbf.scan_file(x, True, benchmark_dsets_scanner)
