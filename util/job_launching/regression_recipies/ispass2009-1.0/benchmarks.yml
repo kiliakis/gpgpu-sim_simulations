@@ -1,0 +1,45 @@
+
+# The run_simulations.py script will run all the suites specified under run
+run:
+    - ispass2009-1.0
+
+# The format is:
+# suite_name:
+#   exec_dir: <location of the executables, relative to the run_simulations.py script>
+#   data_dir: <location of the directories containing benchmark data>
+#   execs:
+#       - <exec_name_1>:
+#           - <commandline arg_list 1> # Leave blank if no arguments
+#           - <commandline arg_list 2>
+#           ...
+#       - <exec_name_2>
+#           ...
+#       ...
+# If you have a bunch of random benchmarks in random places, then a "suite" can be just one benchmark
+
+ispass2009-1.0:
+    exec_dir: "../../benchmarks/bin/4.2/release/"
+    data_dirs: "../../benchmarks/data_dirs/cuda/ispass2009/datasets/"
+    execs:
+        - aes-ispass2009-1.0:
+            - 
+        - bfs-ispass2009-1.0:
+            - 
+        - dg-ispass2009-1.0:
+            - 
+        - lib-ispass2009-1.0:
+            - 
+        - lps-ispass2009-1.0:
+            - 
+        - mum-ispass2009-1.0:
+            - 
+        - nn-ispass2009-1.0:
+            - 
+        - nqu-ispass2009-1.0:
+            - 
+        - ray-ispass2009-1.0:
+            - 
+        - sto-ispass2009-1.0:
+            - 
+        - wp-ispass2009-1.0:
+            - 
