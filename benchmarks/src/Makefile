@@ -14,7 +14,7 @@ PARBOIL_MAKE_ARGS := -f $(shell pwd)/cuda/parboil/common/mk/Makefile \
 	BUILD=cuda \
 	SRCDIR=src/cuda
 
-NVIDIA_COMPUTE_SDK_LOCATION?=$(shell pwd)/cuda/sdk
+NVIDIA_COMPUTE_SDK_LOCATION=$(shell pwd)/cuda/sdk
 BOOST_LIB?=/usr/lib64
 BOOST_ROOT?=/usr/include
 BOOST_VER?=""
@@ -131,10 +131,10 @@ clean_parboil:
 # ISPASS2009 Benchmark suite version 1.0
 ###################################################################################################3
 ispass2009: 
-	$(ISPASS_SETENV) make -f cuda/ispass2009/Makefile.ispass-2009 default -C cuda/ispass2009/
+	$(ISPASS_SETENV) make -f Makefile.ispass-2009 default -C cuda/ispass2009/
 
 clean_ispass2009:
-	$(ISPASS_SETENV) make -f cuda/ispass2009/Makefile.ispass-2009 clean -C cuda/ispass2009/
+	$(ISPASS_SETENV) make -f Makefile.ispass-2009 clean -C cuda/ispass2009/
 
 
 
