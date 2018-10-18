@@ -25,6 +25,7 @@ ISPASS_SETENV=export BINDIR=$(BINDIR); \
 	   export BOOST_LIB=$(BOOST_LIB); \
 	   export BOOST_ROOT=$(BOOST_ROOT); \
 	   export BOOST_VER=$(BOOST_VER); \
+	   export EXESUFFIX=-ispass2009-1.0; \
 	   export OPENMPI_BINDIR=$(OPENMPI_BINDIR); \
 	   export NVIDIA_COMPUTE_SDK_LOCATION=$(NVIDIA_COMPUTE_SDK_LOCATION); 
 
