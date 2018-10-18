@@ -34,7 +34,7 @@
 ###############################################################################
 
 # Add source files here
-EXECUTABLE	:= AES	
+EXECUTABLE	:= AES
 # Cuda source files (compiled with cudacc)
 CUFILES		:= aesHost.cu 
 # C/C++ source files (compiled with gcc / c++)

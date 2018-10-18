@@ -64,8 +64,8 @@ clean: check_environment common
 	$(SETENV) make clean -C AES
 	$(SETENV) make clean -C BFS
 	# cd CP; ./parboil clean cp cuda_short	 
-	$(SETENV) make clean -C DG/3rdParty/ParMetis-3.1
-	$(SETENV) make clean -C DG
+	# $(SETENV) make clean -C DG/3rdParty/ParMetis-3.1
+	# $(SETENV) make clean -C DG
 	$(SETENV) make clean -C LIB
 	$(SETENV) make clean -C LPS
 	$(SETENV) make clean -C MUM
@@ -73,7 +73,7 @@ clean: check_environment common
 	$(SETENV) make clean -C NQU
 	$(SETENV) make clean -C RAY
 	$(SETENV) make clean -C STO
-	$(SETENV) make clean -C WP
+	#$(SETENV) make clean -C WP
 
 clean-visualizer:
 	rm `find -name "gpgpusim_visualizer__*.log.gz"`

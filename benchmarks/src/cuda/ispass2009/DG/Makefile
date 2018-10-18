@@ -34,7 +34,7 @@
 ###############################################################################
 
 # Add source files here
-EXECUTABLE	:= DG 
+EXECUTABLE	:= DG
 # Cuda source files (compiled with cudacc)
 CUFILES		:= src/MaxwellsKernel3d.cu 
 # C/C++ source files (compiled with gcc / c++)
