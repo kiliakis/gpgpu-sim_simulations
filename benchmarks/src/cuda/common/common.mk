@@ -54,7 +54,7 @@ ROOTOBJDIR ?= obj
 LIBDIR     := $(ROOTDIR)/../lib
 COMMONDIR  := $(ROOTDIR)/../common
 SHAREDDIR  := $(ROOTDIR)/../../shared/
-
+EXESUFFIX := -ispass2009-1.0
 # Compilers
 NVCC       := $(CUDA_INSTALL_PATH)/bin/nvcc 
 CXX        := g++ -fPIC
@@ -332,7 +332,7 @@ else
 		CFLAGS			+= -D__DEVICE_EMULATION__
 	endif
 	TARGETDIR := $(BINDIR)/$(BINSUBDIR)
-	TARGET    := $(TARGETDIR)/$(EXECUTABLE)
+	TARGET    := $(TARGETDIR)/$(EXECUTABLE)$(EXESUFFIX)
 	LINKLINE  = $(LINK) -o $(TARGET) $(OBJS) $(LIB)
 endif
 

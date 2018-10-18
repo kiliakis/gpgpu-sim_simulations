@@ -14,6 +14,20 @@ PARBOIL_MAKE_ARGS := -f $(shell pwd)/cuda/parboil/common/mk/Makefile \
 	BUILD=cuda \
 	SRCDIR=src/cuda
 
+NVIDIA_COMPUTE_SDK_LOCATION?=$(shell pwd)/cuda/sdk
+BOOST_LIB?=/usr/lib64
+BOOST_ROOT?=/usr/include
+BOOST_VER?=""
+OPENMPI_BINDIR?=/usr/bin/
+ISPASS_SETENV=export BINDIR=$(BINDIR); \
+	   export ROOTDIR=$(NVIDIA_COMPUTE_SDK_LOCATION)/C/src/; \
+	   export BINSUBDIR=$(BINSUBDIR); \
+	   export BOOST_LIB=$(BOOST_LIB); \
+	   export BOOST_ROOT=$(BOOST_ROOT); \
+	   export BOOST_VER=$(BOOST_VER); \
+	   export OPENMPI_BINDIR=$(OPENMPI_BINDIR); \
+	   export NVIDIA_COMPUTE_SDK_LOCATION=$(NVIDIA_COMPUTE_SDK_LOCATION); 
+
 ifeq ($(shell test $(CUDA_VERSION_MAJOR) -gt 4; echo $$?),0)
 	MAKE_ARGS := GENCODE_SM10= 
 endif
@@ -113,9 +127,18 @@ clean_parboil:
 	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/mri-q-parboil-0.2 -C cuda/parboil/benchmarks/mri-q/
 	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/cutcp-parboil-0.2 -C cuda/parboil/benchmarks/cutcp/
 
+###################################################################################################3
+# ISPASS2009 Benchmark suite version 1.0
+###################################################################################################3
+ispass2009: 
+	$(ISPASS_SETENV) make -f cuda/ispass2009/Makefile.ispass-2009 default -C cuda/ispass2009/
+
+clean_ispass2009:
+	$(ISPASS_SETENV) make -f cuda/ispass2009/Makefile.ispass-2009 clean -C cuda/ispass2009/
 
 
-all: check_environment rodinia_2.0-ft sdk parboil
 
-cleanall: clean_rodinia_2.0-ft clean_sdk clean_parboil
+all: check_environment rodinia_2.0-ft sdk parboil ispass2009
+
+cleanall: clean_rodinia_2.0-ft clean_sdk clean_parboil clean_ispass2009
 	../data_dirs/clean_data.sh
