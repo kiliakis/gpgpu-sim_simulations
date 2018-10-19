@@ -39,8 +39,6 @@ failed_job_file = None
 while True:
     jobstatus_out_file = open(jobstatus_out_filename, 'w+')
 # <<<<<<< HEAD
-#     if options.verbose:
-#         print "Calling job_status.py"
 #     if subprocess.call([os.path.join(this_directory, "job_status.py") ,"-l", options.logfile, "-N", options.sim_name],
 #         stdout=jobstatus_out_file, stderr=jobstatus_out_file) != 0:
 #             jobstatus_out_file.seek(0)
