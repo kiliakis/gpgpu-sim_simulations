@@ -1,2 +1,10 @@
-bin/
+bin/*
 sim_run_*
+*.pyc
+*.o
+*.so
+*.a
+*.la
+*.out
+*.ptx
+*.__afs*

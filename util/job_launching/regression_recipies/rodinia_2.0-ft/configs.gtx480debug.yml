@@ -1,0 +1,12 @@
+run:
+    - GTX480DEBUG
+    - GTX480DEBUG-PTXPLUS
+
+GTX480DEBUG:
+    base_file: "$GPGPUSIM_ROOT/configs/GTX480_DEBUG/gpgpusim.config"
+    extra_params: ""
+
+GTX480DEBUG-PTXPLUS:
+    base_file: "$GPGPUSIM_ROOT/configs/GTX480_DEBUG/gpgpusim.config"
+    extra_params: "-gpgpu_ptx_convert_to_ptxplus 1"
+

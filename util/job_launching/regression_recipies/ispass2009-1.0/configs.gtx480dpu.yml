@@ -1,0 +1,12 @@
+run:
+    - GTX480DPU
+    - GTX480DPU-PTXPLUS
+
+GTX480DPU:
+    base_file: "$GPGPUSIM_ROOT/configs/GTX480_DPU/gpgpusim.config"
+    extra_params: ""
+
+GTX480DPU-PTXPLUS:
+    base_file: "$GPGPUSIM_ROOT/configs/GTX480_DPU/gpgpusim.config"
+    extra_params: "-gpgpu_ptx_convert_to_ptxplus 1"
+

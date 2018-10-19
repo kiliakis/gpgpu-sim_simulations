@@ -1,20 +1,40 @@
-
 CUDA_VERSION=$(shell nvcc --version | grep release | sed -re 's/.*release ([0-9]+\.[0-9]+).*/\1/')
 CUDA_VERSION_MAJOR=$(shell nvcc --version | grep release | sed -re 's/.*release ([0-9]+)\..*/\1/')
 BINDIR=$(shell pwd)/../bin/$(CUDA_VERSION)
-BINSUBDIR=release
+BINSUBDIR?=release
 SETENV=export BINDIR=$(BINDIR); \
    	export BINSUBDIR=$(BINSUBDIR); \
    	export ROOTOBJDIR=obj_$(CUDA_VERSION);\
 
+PARBOIL_SETENV := CUDA_PATH=$(CUDA_INSTALL_PATH)
+PARBOIL_MAKE_ARGS := -f $(shell pwd)/cuda/parboil/common/mk/Makefile \
+	BUILDDIR=build/cuda_default \
+	PARBOIL_ROOT=$(shell pwd)/cuda/parboil \
+	PLATFORM=default \
+	BUILD=cuda \
+	SRCDIR=src/cuda
+
+NVIDIA_COMPUTE_SDK_LOCATION=$(shell pwd)/cuda/sdk
+BOOST_LIB?=/usr/lib64
+BOOST_ROOT?=/usr/include
+BOOST_VER?=""
+OPENMPI_BINDIR?=/usr/bin/
+ISPASS_SETENV=export BINDIR=$(BINDIR); \
+	   export ROOTDIR=$(NVIDIA_COMPUTE_SDK_LOCATION)/C/src/; \
+	   export BINSUBDIR=$(BINSUBDIR); \
+	   export BOOST_LIB=$(BOOST_LIB); \
+	   export BOOST_ROOT=$(BOOST_ROOT); \
+	   export BOOST_VER=$(BOOST_VER); \
+	   export EXESUFFIX=-ispass2009-1.0; \
+	   export OPENMPI_BINDIR=$(OPENMPI_BINDIR); \
+	   export NVIDIA_COMPUTE_SDK_LOCATION=$(NVIDIA_COMPUTE_SDK_LOCATION); 
+
 ifeq ($(shell test $(CUDA_VERSION_MAJOR) -gt 4; echo $$?),0)
-	MAKE_ARGS := GENCODE_SM10=
-else
-	MAKE_ARGS := 
+	MAKE_ARGS := GENCODE_SM10= 
 endif
 
 check_environment:
-	bash ../data_dirs/get_data.sh
+	 # bash ../data_dirs/get_data.sh
 	 @if [ ! -n "$(CUDA_INSTALL_PATH)" ]; then \
 		echo "ERROR *** CUDA_INSTALL_PATH not set; please see README.ISPASS-2009"; \
 		exit 201; \
@@ -70,6 +90,56 @@ clean_rodinia_2.0-ft:
 	$(SETENV) make $(MAKE_ARGS) clean -C cuda/rodinia/2.0-ft/srad
 	$(SETENV) make $(MAKE_ARGS) clean -C cuda/rodinia/2.0-ft/streamcluster
 
-all: check_environment rodinia_2.0-ft
-cleanall: clean_rodinia_2.0-ft
+###################################################################################################3
+# GPU Computing SDK Version 4.1.15
+###################################################################################################3
+sdk: check_environment
+	$(SETENV) make $(MAKE_ARGS) all -C cuda/sdk/
+
+clean_sdk:
+	$(SETENV) make $(MAKE_ARGS) clean -C cuda/sdk/
+
+###################################################################################################3
+# Parboil Benchmark Suite Version 0.2
+###################################################################################################3
+parboil: check_environment
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/spmv-parboil-0.2 -C cuda/parboil/benchmarks/spmv/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/stencil-parboil-0.2 -C cuda/parboil/benchmarks/stencil/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/tpacf-parboil-0.2 -C cuda/parboil/benchmarks/tpacf/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/lbm-parboil-0.2 -C cuda/parboil/benchmarks/lbm/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/mri-gridding-parboil-0.2 -C cuda/parboil/benchmarks/mri-gridding/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/sad-parboil-0.2 -C cuda/parboil/benchmarks/sad/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/bfs-parboil-0.2 -C cuda/parboil/benchmarks/bfs/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/histo-parboil-0.2 -C cuda/parboil/benchmarks/histo/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/sgemm-parboil-0.2 -C cuda/parboil/benchmarks/sgemm/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/mri-q-parboil-0.2 -C cuda/parboil/benchmarks/mri-q/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) default BIN=$(BINDIR)/$(BINSUBDIR)/cutcp-parboil-0.2 -C cuda/parboil/benchmarks/cutcp/
+
+clean_parboil:
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/spmv-parboil-0.2 -C cuda/parboil/benchmarks/spmv/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/stencil-parboil-0.2 -C cuda/parboil/benchmarks/stencil/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/tpacf-parboil-0.2 -C cuda/parboil/benchmarks/tpacf/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/lbm-parboil-0.2 -C cuda/parboil/benchmarks/lbm/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/mri-gridding-parboil-0.2 -C cuda/parboil/benchmarks/mri-gridding/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/sad-parboil-0.2 -C cuda/parboil/benchmarks/sad/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/bfs-parboil-0.2 -C cuda/parboil/benchmarks/bfs/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/histo-parboil-0.2 -C cuda/parboil/benchmarks/histo/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/sgemm-parboil-0.2 -C cuda/parboil/benchmarks/sgemm/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/mri-q-parboil-0.2 -C cuda/parboil/benchmarks/mri-q/
+	$(PARBOIL_SETENV) make $(PARBOIL_MAKE_ARGS) clean BIN=$(BINDIR)/$(BINSUBDIR)/cutcp-parboil-0.2 -C cuda/parboil/benchmarks/cutcp/
+
+###################################################################################################3
+# ISPASS2009 Benchmark suite version 1.0
+###################################################################################################3
+ispass2009: 
+	$(ISPASS_SETENV) make -f Makefile.ispass-2009 default -C cuda/ispass2009/
+
+clean_ispass2009:
+	$(ISPASS_SETENV) make -f Makefile.ispass-2009 clean -C cuda/ispass2009/
+
+
+
+all: check_environment rodinia_2.0-ft sdk parboil ispass2009
+
+cleanall: clean_rodinia_2.0-ft clean_sdk clean_parboil clean_ispass2009
 	../data_dirs/clean_data.sh

@@ -1,0 +1,45 @@
+
+# The run_simulations.py script will run all the suites specified under run
+run:
+    - parboil-0.2
+
+# The format is:
+# suite_name:
+#   exec_dir: <location of the executables, relative to the run_simulations.py script>
+#   data_dir: <location of the directories containing benchmark data>
+#   execs:
+#       - <exec_name_1>:
+#           - <commandline arg_list 1> # Leave blank if no arguments
+#           - <commandline arg_list 2>
+#           ...
+#       - <exec_name_2>
+#           ...
+#       ...
+# If you have a bunch of random benchmarks in random places, then a "suite" can be just one benchmark
+
+parboil-0.2:
+    exec_dir: "../../benchmarks/bin/4.2/release/"
+    data_dirs: "../../benchmarks/data_dirs/cuda/parboil/datasets/"
+    execs:
+        - spmv-parboil-0.2:
+            - small
+        - bfs-parboil-0.2:
+            - NY
+        - stencil-parboil-0.2:
+            - small
+        - tpacf-parboil-0.2:
+            - small
+        - lbm-parboil-0.2:
+            - short
+        - mri-gridding-parboil-0.2:
+            - small
+        - sad-parboil-0.2:
+            - default
+        - histo-parboil-0.2:
+            - default
+        - sgemm-parboil-0.2:
+            - small
+        - mri-q-parboil-0.2:
+            - small
+        - cutcp-parboil-0.2:
+            - small

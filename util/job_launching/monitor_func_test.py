@@ -38,12 +38,20 @@ failed_job_file = None
 
 while True:
     jobstatus_out_file = open(jobstatus_out_filename, 'w+')
+# <<<<<<< HEAD
+#     if options.verbose:
+#         print "Calling job_status.py"
+#     if subprocess.call([os.path.join(this_directory, "job_status.py") ,"-l", options.logfile, "-N", options.sim_name],
+#         stdout=jobstatus_out_file, stderr=jobstatus_out_file) != 0:
+#             jobstatus_out_file.seek(0)
+#             print jobstatus_out_file.read()
+# =======
+
     if options.verbose:
         print "Calling job_status.py"
+
     if subprocess.call([os.path.join(this_directory, "job_status.py") ,"-l", options.logfile, "-N", options.sim_name],
-        stdout=jobstatus_out_file, stderr=jobstatus_out_file) != 0:
-            jobstatus_out_file.seek(0)
-            print jobstatus_out_file.read()
+        stdout=jobstatus_out_file, stderr=jobstatus_out_file) < 0:
             exit("Error Launching job_status.py")
     else:
         jobstatus_out_file.seek(0)
@@ -80,8 +88,13 @@ while True:
     print "Passed:{0}/{1}, Not passed:{2}/{1}, Not done:{3}/{1}"\
         .format(num_passed, total, num_else, num_not_done)
     if num_else > 0:
+# <<<<<<< HEAD
+#         print "Contents {0}:".format(failed_job_file)
+#         if options.verbose:
+#             print open(failed_job_file).read()
+# =======
         print "Contents {0}:".format(failed_job_file)
-        if options.verbose:
+        if options.verbose and failed_job_file != None:
             print open(failed_job_file).read()
 
     if num_not_done == 0:
