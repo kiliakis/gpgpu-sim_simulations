@@ -4,7 +4,13 @@ BINDIR=$(shell pwd)/../bin/$(CUDA_VERSION)
 BINSUBDIR?=release
 SETENV=export BINDIR=$(BINDIR); \
    	export BINSUBDIR=$(BINSUBDIR); \
-   	export ROOTOBJDIR=obj_$(CUDA_VERSION);\
+   	export ROOTOBJDIR=obj_$(CUDA_VERSION); \
+	export EXESUFFIX= ;
+
+SDK_SETENV=export BINDIR=$(BINDIR); \
+   	export BINSUBDIR=$(BINSUBDIR); \
+   	export ROOTOBJDIR=obj_$(CUDA_VERSION); \
+	export EXESUFFIX=-sdk-4.1.15;
 
 PARBOIL_SETENV := CUDA_PATH=$(CUDA_INSTALL_PATH)
 PARBOIL_MAKE_ARGS := -f $(shell pwd)/cuda/parboil/common/mk/Makefile \
@@ -94,10 +100,10 @@ clean_rodinia_2.0-ft:
 # GPU Computing SDK Version 4.1.15
 ###################################################################################################3
 sdk: check_environment
-	$(SETENV) make $(MAKE_ARGS) all -C cuda/sdk/
+	$(SDK_SETENV) make $(MAKE_ARGS) all -C cuda/sdk/
 
 clean_sdk:
-	$(SETENV) make $(MAKE_ARGS) clean -C cuda/sdk/
+	$(SDK_SETENV) make $(MAKE_ARGS) clean -C cuda/sdk/
 
 ###################################################################################################3
 # Parboil Benchmark Suite Version 0.2

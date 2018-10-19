@@ -54,7 +54,7 @@ ROOTOBJDIR ?= obj
 LIBDIR     := $(ROOTDIR)/../lib
 COMMONDIR  := $(ROOTDIR)/../common
 SHAREDDIR  := $(ROOTDIR)/../../shared/
-EXESUFFIX  ?= -sdk-4.1.15
+# EXESUFFIX  ?= -sdk-4.1.15
 # Compilers
 NVCC       := $(CUDA_INSTALL_PATH)/bin/nvcc 
 CXX        := g++ -fPIC
