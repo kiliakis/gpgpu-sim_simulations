@@ -19,27 +19,25 @@ run:
 
 ispass2009-1.0:
     exec_dir: "../../benchmarks/bin/4.2/release/"
-    data_dirs: "../../benchmarks/data_dirs/cuda/ispass2009/datasets/"
+    data_dirs: "../../benchmarks/data_dirs/cuda/ispass2009/"
     execs:
-        - aes-ispass2009-1.0:
+        - AES-ispass2009-1.0:
+            - e 128 ./data/output.bmp ./data/key128.txt 
+        - BFS-ispass2009-1.0:
+            - ./data/graph4096.txt
+        # - DG-ispass2009-1.0:
+        - LIB-ispass2009-1.0:
             - 
-        - bfs-ispass2009-1.0:
+        - LPS-ispass2009-1.0:
             - 
-        - dg-ispass2009-1.0:
+        - MUM-ispass2009-1.0:
+            - ./data/NC_003997.20k.fna ./data/NC_003997_q25bp.50k.fna
+        - NN-ispass2009-1.0:
+            - 28
+        - NQU-ispass2009-1.0:
             - 
-        - lib-ispass2009-1.0:
+        - RAY-ispass2009-1.0:
+            - 256 256
+        - STO-ispass2009-1.0:
             - 
-        - lps-ispass2009-1.0:
-            - 
-        - mum-ispass2009-1.0:
-            - 
-        - nn-ispass2009-1.0:
-            - 
-        - nqu-ispass2009-1.0:
-            - 
-        - ray-ispass2009-1.0:
-            - 
-        - sto-ispass2009-1.0:
-            - 
-        - wp-ispass2009-1.0:
-            - 
+        # - WP-ispass2009-1.0:
