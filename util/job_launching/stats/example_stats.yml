@@ -6,6 +6,10 @@
 #   http://www.regexpal.com/
 
 collect:
+    kernel_launch_uid:
+        'kernel_launch_uid\s*=\s*(.*)'
+    kernel_name:
+        'kernel_name\s*=\s*(.*)'
     "gpgpu_simulation_time (sec)":
         'gpgpu_simulation_time\s*=.*\(([0-9]+) sec\).*'
     gpu_tot_sim_insn:

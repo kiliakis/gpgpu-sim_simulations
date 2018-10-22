@@ -162,33 +162,50 @@ for app_and_args in apps_and_args:
                 break
             build_match = re.match(".*\[build\s+(.*)\].*", line)
             if build_match:
-                stat_map[app_and_args + config + "GPGPU-Sim-build"] = build_match.group(1)
+                stat_map[app_and_args + config + "GPGPU-Sim-build"] = [build_match.group(1)]
                 break
 
 
         # Only go up for 10000 lines looking for stuff
         MAX_LINES = 100000
         count = 0
-        for line in reversed(open(outfile).readlines()):
-            count += 1
-            if count >= MAX_LINES:
+        '''
+        for stat_name, token in stats_to_pull.iteritems():
+            if stat_name in stat_found:
+                continue
+            for line in open(outfile).readlines():
+                existance_test = token.search(line.rstrip())
+                if existance_test != None:
+                    stat_found.add(stat_name)
+
+            #existance_test = token.findall(open(outfile).readlines())
+            #if len(existance_test) > 0:
+            #    stat_found.add(stat_name)
+            if len(stat_found) == len(stats_to_pull):
                 break
+        '''
+
+        for line in open(outfile).readlines():
+            #count += 1
+            #if count >= MAX_LINES:
+            #    break
 
             # pull out some stats
             for stat_name, token in stats_to_pull.iteritems():
-                if stat_name in stat_found:
-                    continue
+                #if stat_name in stat_found:
+                #    continue
                 existance_test = token.search( line.rstrip() )
+                #existance_test = token.findall( line.rstrip() )
                 if existance_test != None:
                     stat_found.add(stat_name)
                     number = existance_test.group(1).strip()
-                    # if app_and_args + config + stat_name not in stat_map:
-                    #     stat_map[app_and_args + config + stat_name] = []
-                    # stat_map[app_and_args + config + stat_name].append(number)
-                    stat_map[app_and_args + config + stat_name] = number
-            if len(stat_found) == len(stats_to_pull):
-                break
-
+                    if app_and_args + config + stat_name not in stat_map:
+                        stat_map[app_and_args + config + stat_name] = []
+                    stat_map[app_and_args + config + stat_name].append(number)
+                    # stat_map[app_and_args + config + stat_name] = number
+            #if len(stat_found) == len(stats_to_pull):
+            #    break
+        
 # After collection, spew out the tables
 DIVISION = "-" * 100
 csv_str = ""
@@ -206,7 +223,7 @@ for stat_name in stats_to_pull:
         csv_str += appargs + ","
         for config in configs:
             if appargs + config + stat_name in stat_map:
-                csv_str += stat_map[appargs + config + stat_name] + ","
+                csv_str += ",".join(stat_map[appargs + config + stat_name]) + ","
             else:
                 csv_str += "NA,"
         csv_str += "\n"
