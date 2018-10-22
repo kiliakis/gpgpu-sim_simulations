@@ -182,7 +182,10 @@ for app_and_args in apps_and_args:
                 if existance_test != None:
                     stat_found.add(stat_name)
                     number = existance_test.group(1).strip()
-                    stat_map[app_and_args + config + stat_name] = number
+                    if app_and_args + config + stat_name not in stat_map:
+                        stat_map[app_and_args + config + stat_name] = []
+                    stat_map.append(number)
+                    # stat_map[app_and_args + config + stat_name] = number
             if len(stat_found) == len(stats_to_pull):
                 break
 
@@ -190,8 +193,8 @@ for app_and_args in apps_and_args:
 DIVISION = "-" * 100
 csv_str = ""
 
-# Just adding this in here sinc it is a special case and is not parsed like everything else, because you need
-# to read from the beginning not the end
+# Just adding this in here since it is a special case and is not parsed like 
+# everything else, because you need to read from the beginning not the end
 stats_to_pull["GPGPU-Sim-build"] = ""
 for stat_name in stats_to_pull:
     csv_str += DIVISION + "\n"
