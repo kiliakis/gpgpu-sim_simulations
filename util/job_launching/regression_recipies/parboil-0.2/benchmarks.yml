@@ -21,25 +21,25 @@ parboil-0.2:
     exec_dir: "../../benchmarks/bin/4.2/release/"
     data_dirs: "../../benchmarks/data_dirs/cuda/parboil/datasets/"
     execs:
-        - spmv-parboil-0.2:
-            - small
+        #- spmv-parboil-0.2:
+            #- small
         - bfs-parboil-0.2:
             - NY
-        - stencil-parboil-0.2:
-            - small
+        #- stencil-parboil-0.2:
+            #- small
         - tpacf-parboil-0.2:
             - small
         - lbm-parboil-0.2:
             - short
         - mri-gridding-parboil-0.2:
             - small
-        - sad-parboil-0.2:
-            - default
+        #- sad-parboil-0.2:
+            #- default
         - histo-parboil-0.2:
             - default
-        - sgemm-parboil-0.2:
-            - small
-        - mri-q-parboil-0.2:
-            - small
-        - cutcp-parboil-0.2:
-            - small
+        #- sgemm-parboil-0.2:
+            #- small
+        #- mri-q-parboil-0.2:
+            #- small
+        #- cutcp-parboil-0.2:
+            #- small

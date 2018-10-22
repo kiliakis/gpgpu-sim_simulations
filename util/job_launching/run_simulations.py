@@ -57,6 +57,7 @@ class ConfigurationSpec:
 
             self.benchmark_args_subdirs = {}
             for args in self.command_line_args_list:
+                # print args
                 if args == "" or args == None:
                     self.benchmark_args_subdirs[args] = "NO_ARGS"
                 else:

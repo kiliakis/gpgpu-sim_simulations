@@ -8,3 +8,4 @@ sim_run_*
 *.out
 *.ptx
 *.__afs*
+benchmarks/**/bin
