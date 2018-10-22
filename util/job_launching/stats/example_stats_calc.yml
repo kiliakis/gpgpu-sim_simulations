@@ -1,0 +1,64 @@
+# Collect contains the name of the stats you want to collect.
+# Under the name of the stat provide a regex, where the first group
+# Is the value you want printed.
+# If you don't know "how to regex".... Learn how :) It will change your life.
+# Here is a handy regex tester that helps get the thing right faster without re-running stuff:
+#   http://www.regexpal.com/
+
+collect:
+    kernel_launch_uid:
+        'last'
+    kernel_name:
+        'unique'
+    "gpgpu_simulation_time (sec)":
+        'last'
+    gpu_tot_sim_insn:
+        'last'
+    gpu_tot_ipc:
+        'last'
+    L2_total_cache_misses:
+        'last'
+    L1D_total_cache_misses:
+        'last'
+    L1D_total_cache_accesses:
+        'last'
+    L1D_total_cache_miss_rate:
+        'last'
+    L1I_total_cache_accesses:
+        'last'
+    L1I_total_cache_misses:
+        'last'
+    L1I_total_cache_miss_rate:
+        'last'
+    averagemflatency:
+        'wavg'
+    Stall:
+        'wavg'
+    W0_Idle:
+        'wavg'
+    W0_Scoreboard:
+        'wavg'
+    "L2_BW (GB/sec)":
+        'wavg'
+    "L2_BW_total (GB/sec)":
+        'wavg'
+    gpgpu_n_load_insn:
+        'acc'
+    bw_util:
+        'wavg'
+    gpgpu_n_store_insn:
+        'acc'
+    gpgpu_n_mem_read_local:
+        'acc'
+    gpgpu_n_mem_read_global:
+        'acc'
+    gpgpu_n_mem_write_local:
+        'acc'
+    gpgpu_n_mem_write_global:
+        'acc'
+    gpgpu_n_stall_shd_mem_stall:
+        'acc'
+    gpgpu_n_tot_thrd_icount:
+        'last'
+    gpgpu_n_tot_w_icount:
+        'last'
