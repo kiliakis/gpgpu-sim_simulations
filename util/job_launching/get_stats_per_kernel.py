@@ -215,17 +215,18 @@ csv_str = ""
 stats_to_pull["GPGPU-Sim-build"] = ""
 for stat_name in stats_to_pull:
     csv_str += DIVISION + "\n"
-    csv_str += stat_name + "\n,"
+    csv_str += stat_name + ","
     for config in configs:
         csv_str += config + ","
     csv_str += "\n"
     for appargs in apps_and_args:
         csv_str += appargs + ","
+        times = max([len(stat_map[appargs + config + stat_name]) for config in configs if appargs + config + stat_name in stat_map]+[1])
         for config in configs:
             if appargs + config + stat_name in stat_map:
                 csv_str += ",".join(stat_map[appargs + config + stat_name]) + ","
             else:
-                csv_str += "NA,"
+                csv_str += "NA,"*times
         csv_str += "\n"
     csv_str += "\n"
 

@@ -8,28 +8,6 @@
 collect:
     kernel_launch_uid:
         'last'
-    kernel_name:
-        'unique'
-    "gpgpu_simulation_time (sec)":
-        'last'
-    gpu_tot_sim_insn:
-        'last'
-    gpu_tot_ipc:
-        'last'
-    L2_total_cache_misses:
-        'last'
-    L1D_total_cache_misses:
-        'last'
-    L1D_total_cache_accesses:
-        'last'
-    L1D_total_cache_miss_rate:
-        'last'
-    L1I_total_cache_accesses:
-        'last'
-    L1I_total_cache_misses:
-        'last'
-    L1I_total_cache_miss_rate:
-        'last'
     averagemflatency:
         'wavg'
     Stall:
@@ -38,14 +16,14 @@ collect:
         'wavg'
     W0_Scoreboard:
         'wavg'
-    "L2_BW (GB/sec)":
+    "L2_BW(GBpersec)":
         'wavg'
-    "L2_BW_total (GB/sec)":
-        'wavg'
+    "L2_BW_total(GBpersec)":
+        'last'
     gpgpu_n_load_insn:
         'acc'
-    bw_util:
-        'wavg'
+    #bw_util:
+    #    'wavg'
     gpgpu_n_store_insn:
         'acc'
     gpgpu_n_mem_read_local:
@@ -61,4 +39,18 @@ collect:
     gpgpu_n_tot_thrd_icount:
         'last'
     gpgpu_n_tot_w_icount:
+        'last'
+    L2_total_cache_misses:
+        'last'
+    L1D_total_cache_misses:
+        'last'
+    L1D_total_cache_accesses:
+        'last'
+    L1D_total_cache_miss_rate:
+        'last'
+    L1I_total_cache_accesses:
+        'last'
+    L1I_total_cache_misses:
+        'last'
+    L1I_total_cache_miss_rate:
         'last'
