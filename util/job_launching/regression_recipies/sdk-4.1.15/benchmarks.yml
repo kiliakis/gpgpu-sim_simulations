@@ -27,7 +27,7 @@ sdk-4.1.15:
         - MonteCarlo-sdk-4.1.15:
             - 
         - SobolQRNG-sdk-4.1.15:
-            - --vectors=10000 --dimensions=50
+            - --vectors=10000 --dimensions=100
         - binomialOptions-sdk-4.1.15:
             - 
         - convolutionSeparable-sdk-4.1.15:

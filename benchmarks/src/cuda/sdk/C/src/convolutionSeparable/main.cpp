@@ -69,8 +69,8 @@ int main(int argc, char **argv)
         *d_Buffer;
 
 
-    const int imageW = 3072;
-    const int imageH = 3072;
+    const int imageW = 2048;
+    const int imageH = 2048;
     const int iterations = 4;
 
     unsigned int hTimer;
