@@ -49,7 +49,8 @@ extern "C" void initTable_SM13(unsigned int tableCPU[QRNG_DIMENSIONS][QRNG_RESOL
 extern "C" void quasirandomGenerator_SM13(float *d_Output, unsigned int seed, unsigned int N);
 extern "C" void inverseCND_SM13(float *d_Output, unsigned int *d_Input, unsigned int N);
 
-const int N = 1048576;
+// const int N = 1048576;
+const int N = 1048576 / 4;
 
 int main(int argc, char **argv)
 {

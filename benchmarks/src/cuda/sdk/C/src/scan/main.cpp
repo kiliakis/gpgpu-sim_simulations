@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
     int globalFlag = 1;
     size_t szWorkgroup;
-    const int iCycles = 100;
+    const int iCycles = 10;
     shrLog("*** Running GPU scan for short arrays (%d identical iterations)...\n\n", iCycles);
         for(uint arrayLength = MIN_SHORT_ARRAY_SIZE; arrayLength <= MAX_SHORT_ARRAY_SIZE; arrayLength <<= 1){
             shrLog("Running scan for %u elements (%u arrays)...\n", arrayLength, N / arrayLength);

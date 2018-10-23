@@ -55,8 +55,8 @@ extern "C" void dyadicConvolutionCPU(
 ////////////////////////////////////////////////////////////////////////////////
 // Data configuration
 ////////////////////////////////////////////////////////////////////////////////
-const int log2Kernel = 7;
-const   int log2Data = 23;
+const int log2Kernel = 5;
+const   int log2Data = 21;
 
 const int   dataN = 1 << log2Data;
 const int kernelN = 1 << log2Kernel;

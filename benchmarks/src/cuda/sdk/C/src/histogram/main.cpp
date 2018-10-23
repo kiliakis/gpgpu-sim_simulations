@@ -160,7 +160,7 @@
     }
 // end of CUDA Helper Functions
 
-const int numRuns = 16;
+const int numRuns = 4;
 
 static char *sSDKsample = "[histogram]\0";
 

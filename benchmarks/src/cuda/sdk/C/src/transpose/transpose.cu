@@ -51,7 +51,7 @@ int MAX_TILES_SM10 = (FLOOR(MATRIX_SIZE_X,384) * FLOOR(MATRIX_SIZE_Y,384)) / (TI
 // Number of repetitions used for timing.  Two sets of repetitions are performed:
 // 1) over kernel launches and 2) inside the kernel over just the loads and stores
 
-#define NUM_REPS  100
+#define NUM_REPS  10
 
 ////////////////////////////////////////////////////////////////////////////////
 // These are CUDA Helper functions

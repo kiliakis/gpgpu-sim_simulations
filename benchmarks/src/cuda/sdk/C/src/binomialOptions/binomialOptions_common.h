@@ -31,7 +31,7 @@ typedef struct{
 // Global parameters
 ////////////////////////////////////////////////////////////////////////////////
 //Number of time steps
-#define   NUM_STEPS 2048
+#define   NUM_STEPS 256
 //Max option batch size
 #define MAX_OPTIONS 1024
 

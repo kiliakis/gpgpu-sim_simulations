@@ -27,45 +27,41 @@ sdk-4.1.15:
         - MonteCarlo-sdk-4.1.15:
             - 
         - SobolQRNG-sdk-4.1.15:
-            - 
+            - --vectors=10000 --dimensions=50
         - binomialOptions-sdk-4.1.15:
             - 
         - convolutionSeparable-sdk-4.1.15:
-            - 
-        - dct8x8-sdk-4.1.15:
-            - 
-        - eigenvalues-sdk-4.1.15:
             - 
         - fastWalshTransform-sdk-4.1.15:
             - 
         - histogram-sdk-4.1.15:
             - 
-        - inlinePTX-sdk-4.1.15:
-            - 
-        - marchingCubes-sdk-4.1.15:
-            - 
         - mergeSort-sdk-4.1.15:
-            - 
-        - particles-sdk-4.1.15:
             - 
         - quasirandomGenerator-sdk-4.1.15:
             - 
         - reduction-sdk-4.1.15:
-            - 
+            - --type=int
+            - --type=float
         - scalarProd-sdk-4.1.15:
             - 
         - scan-sdk-4.1.15:
             - 
-        - smokeParticles-sdk-4.1.15:
-            - 
         - sortingNetworks-sdk-4.1.15:
             - 
         - transpose-sdk-4.1.15:
-            - 
+            - --dimY=512 --dimX=512
         - vectorAdd-sdk-4.1.15:
             - 
         - volumeRender-sdk-4.1.15:
             - 
+        # - smokeParticles-sdk-4.1.15:
+        # - particles-sdk-4.1.15:
+        #     - --noprompt --benchmark --n=16384 --grid=64
+        # - marchingCubes-sdk-4.1.15:
+        # - inlinePTX-sdk-4.1.15:
+        # - dct8x8-sdk-4.1.15:
+        # - eigenvalues-sdk-4.1.15:
         # - grabcutNPP-sdk-4.1.15:
         # - nbody-sdk-4.1.15:
             # - -numbodies=64 -compare

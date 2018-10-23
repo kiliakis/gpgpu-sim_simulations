@@ -100,7 +100,7 @@ int main(int argc, char **argv)
             useDoublePrecision = 0;
     }
 
-    const int         OPT_N = 256;
+    const int         OPT_N = 64;
     const int        PATH_N = 1 << 18;
     const unsigned int SEED = 0;
 
