@@ -103,7 +103,7 @@ class ConfigurationSpec:
                         os.makedirs(this_directory + "logfiles/")
                     now_time = datetime.datetime.now()
                     day_string = now_time.strftime("%y.%m.%d-%A")
-                    time_string = now_time.strftime("%H:%M:%S")
+                    time_string = now_time.strftime("%H.%M.%S")
                     log_name = "sim_log.{0}".format(options.launch_name)
                     logfile = open(this_directory +
                                    "logfiles/" + log_name + "." +
