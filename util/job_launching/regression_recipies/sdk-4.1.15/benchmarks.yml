@@ -53,27 +53,29 @@ sdk-4.1.15:
             - --dimY=512 --dimX=512
         - vectorAdd-sdk-4.1.15:
             - 
-        - volumeRender-sdk-4.1.15:
-            - 
+        - nbody-sdk-4.1.15:
+            - -n=512 -compare -benchmark
+        - Mandelbrot-sdk-4.1.15:
+            - --perftest
+        # - boxFilter-sdk-4.1.15:
+        # - recursiveGaussian-sdk-4.1.15:
+        # - imageDenoising-sdk-4.1.15:
+        # - bilateralFilter-sdk-4.1.15:
+        # - bicubicTexture-sdk-4.1.15:
+        # - postProcessGL-sdk-4.1.15:
+        # - marchingCubes-sdk-4.1.15:
+        # - SobelFilter-sdk-4.1.15:
+        # - volumeRender-sdk-4.1.15:
         # - smokeParticles-sdk-4.1.15:
         # - particles-sdk-4.1.15:
         #     - --noprompt --benchmark --n=16384 --grid=64
-        # - marchingCubes-sdk-4.1.15:
         # - inlinePTX-sdk-4.1.15:
         # - dct8x8-sdk-4.1.15:
         # - eigenvalues-sdk-4.1.15:
         # - grabcutNPP-sdk-4.1.15:
-        # - nbody-sdk-4.1.15:
-            # - -numbodies=64 -compare
-        # - imageDenoising-sdk-4.1.15:
-        # - recursiveGaussian-sdk-4.1.15:
         # - HSOpticalFlow-sdk-4.1.15:
-        # - SobelFilter-sdk-4.1.15:
-        # - bilateralFilter-sdk-4.1.15:
-        # - boxFilter-sdk-4.1.15:
         # - dwtHaar1D-sdk-4.1.15:
         # - batchCUBLAS-sdk-4.1.15:
-        # - bicubicTexture-sdk-4.1.15:
         # - convolutionFFT2D-sdk-4.1.15:
         # - conjugateGradient-sdk-4.1.15:
         # - conjugateGradientPrecond-sdk-4.1.15:
@@ -91,48 +93,13 @@ sdk-4.1.15:
         # - EstimatePiQ-sdk-4.1.15:
         # - FDTD3d-sdk-4.1.15:
         # - Interval-sdk-4.1.15:
-        # - Mandelbrot-sdk-4.1.15:
         # - MersenneTwisterGP11213-sdk-4.1.15:
         # - SingleAsianOptionP-sdk-4.1.15:
-        # - vectorAddDrv-sdk-4.1.15:
         # - MonteCarloMultiGPU-sdk-4.1.15:
         # - randomFog-sdk-4.1.15:
-        # - newdelete-sdk-4.1.15:
         # - oceanFFT-sdk-4.1.15:
         # - convolutionTexture-sdk-4.1.15:
-        # - FunctionPointers-sdk-4.1.15:
-        # - alignedTypes-sdk-4.1.15:
-        # - asyncAPI-sdk-4.1.15:
         # - bandwidthTest-sdk-4.1.15:
-        # - clock-sdk-4.1.15:
         # - concurrentKernels-sdk-4.1.15:
-        # - cppIntegration-sdk-4.1.15:
-        # - deviceQuery-sdk-4.1.15:
-        # - deviceQueryDrv-sdk-4.1.15:
         # - dxtc-sdk-4.1.15:
-        # - matrixMulDynlinkJIT-sdk-4.1.15:
-        # - segmentationTreeThrust-sdk-4.1.15:
-        # - postProcessGL-sdk-4.1.15:
-        # - ptxjit-sdk-4.1.15:
-        # - template-sdk-4.1.15:
-        # - simpleAssert-sdk-4.1.15:
-        # - simpleAtomicIntrinsics-sdk-4.1.15:
-        # - simpleCUBLAS-sdk-4.1.15:
-        # - simpleCUFFT-sdk-4.1.15:
-        # - simpleCubemapTexture-sdk-4.1.15:
-        # - simpleGL-sdk-4.1.15:
-        # - simpleLayeredTexture-sdk-4.1.15:
-        # - simpleMPI-sdk-4.1.15:
-        # - simpleMultiCopy-sdk-4.1.15:
-        # - simpleMultiGPU-sdk-4.1.15:
-        # - simpleP2P-sdk-4.1.15:
-        # - simplePitchLinearTexture-sdk-4.1.15:
-        # - simplePrintf-sdk-4.1.15:
-        # - simpleStreams-sdk-4.1.15:
-        # - simpleSurfaceWrite-sdk-4.1.15:
-        # - simpleTemplates-sdk-4.1.15:
-        # - simpleTexture-sdk-4.1.15:
-        # - simpleTexture3D-sdk-4.1.15:
-        # - simpleTextureDrv-sdk-4.1.15:
-        # - simpleVoteIntrinsics-sdk-4.1.15:
-        # - simpleZeroCopy-sdk-4.1.15:
+        
