@@ -16,6 +16,11 @@ this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
 # which will have current GIT commit number attatched.
 
 
+now_time = datetime.datetime.now()
+day_string = now_time.strftime("%y.%m.%d-%A")
+time_string = now_time.strftime("%H.%M.%S")
+
+
 def extract_so_name(so_path):
     objdump_out_filename = this_directory + "so_objdump_out.txt"
     objdump_out_file = open(objdump_out_filename, 'w+')
@@ -101,9 +106,6 @@ class ConfigurationSpec:
                     # Dump the benchmark description to the logfile
                     if not os.path.exists(this_directory + "logfiles/"):
                         os.makedirs(this_directory + "logfiles/")
-                    now_time = datetime.datetime.now()
-                    day_string = now_time.strftime("%y.%m.%d-%A")
-                    time_string = now_time.strftime("%H.%M.%S")
                     log_name = "sim_log.{0}".format(options.launch_name)
                     logfile = open(this_directory +
                                    "logfiles/" + log_name + "." +
