@@ -50,7 +50,7 @@ extern "C" void quasirandomGenerator_SM13(float *d_Output, unsigned int seed, un
 extern "C" void inverseCND_SM13(float *d_Output, unsigned int *d_Input, unsigned int N);
 
 // const int N = 1048576;
-const int N = 1048576 / 4;
+const int N = 1048576 / 16;
 
 int main(int argc, char **argv)
 {
