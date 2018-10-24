@@ -22,7 +22,10 @@ def parse_config_yml( config_yml ):
     configurations = []
     for config in configs_yaml['run']:
         gpgpusim_conf = os.path.expandvars(configs_yaml[config]['base_file'])
-        configurations.append( ( config, configs_yaml[config]['extra_params'], gpgpusim_conf ) )
+        params = configs_yaml[config]['extra_params']
+        if isinstance(params, list):
+          params = ' '.join(params)
+        configurations.append( ( config, params, gpgpusim_conf ) )
     return configurations
 
 def get_cuda_version():
