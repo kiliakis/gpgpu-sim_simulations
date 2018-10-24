@@ -25,7 +25,7 @@
  */
 
 #include "boost/filesystem/operations.hpp"
-#include "boost/filesystem/fstream.hpp"
+//#include "boost/filesystem/fstream.hpp"
 #include <iostream>
 #include <string>
 #include <string>
@@ -57,9 +57,9 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 
 boost::intmax_t getFileSize(path &myPath);
 
-void readFromFileNotForm(path &myPath, char *storingArray, unsigned dataSize);
+void readFromFileNotForm(std::string &myPath, char *storingArray, unsigned dataSize);
 
-void readFromFileForm(path &myPath, std::vector<unsigned> &storingArray);
+void readFromFileForm(std::string &myPath, std::vector<unsigned> &storingArray);
 
 void expFunc(std::vector<unsigned> &keyArray, std::vector<unsigned> &expKeyArray);
 

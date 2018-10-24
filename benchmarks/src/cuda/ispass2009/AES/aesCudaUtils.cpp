@@ -86,11 +86,11 @@ void usage() {
 	exit(0);
 }
 
-bool file_exists(const ifstream& name){
+bool file_exists(std::ifstream& name){
 	return name.good();
 }
 
-long int fileSize(const ifstream& f){
+long int fileSize(std::ifstream& f){
 	return f.tellg();
 }
 
@@ -99,16 +99,16 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 	
 	// path inputPath(myInputFile.c_str());
 	// path keyPath(myKeyFile.c_str());
-	ifstream inputPath(myInputFile.c_str(), std::ios::binary | std::ios::ate);
-	ifstream keyPath(myKeyFile.c_str(), std::ios::binary | std::ios::ate);
+	std::ifstream inputPath(myInputFile.c_str(), std::ios::binary | std::ios::ate);
+	std::ifstream keyPath(myKeyFile.c_str(), std::ios::binary | std::ios::ate);
 
 	// if ( !exists(keyPath) )
 	if ( !file_exists(keyPath) )
-		throw std::string("file "+keyPath.string()+" doesn't exist");
+		throw std::string("file "+myKeyFile+" doesn't exist");
 
 	// if ( !exists(inputPath) )
 	if ( !file_exists(inputPath) )
-		throw std::string("file "+inputPath.string()+" doesn't exist");
+		throw std::string("file "+myInputFile+" doesn't exist");
 	
 	if ( myKeyBitsSize!=256 && myKeyBitsSize!=128)
 		throw std::string("cannot use a key dimension different from 256 or 128");
@@ -137,7 +137,7 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 		throw std::string("cannot decrypt a file bigger than 33MB");
 
 	//legge l'input
-	readFromFileNotForm(inputPath, inputArray, inputFileSize);
+	readFromFileNotForm(myInputFile, inputArray, inputFileSize);
 	
 	std::vector<unsigned> keyArray(myKeyBitsSize/8);
 	
@@ -147,7 +147,7 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 	std::vector<unsigned> invExpKeyArray(ekSize);
 	
 	//legge la chiave
-	readFromFileForm(keyPath, keyArray);
+	readFromFileForm(myKeyFile, keyArray);
 
 	std::cout << "\n###############################################################\n\n";
 	std::cout << "AES - CUDA by Svetlin Manavski)\n\n";
@@ -208,28 +208,28 @@ boost::intmax_t getFileSize(path &myPath){
 }
 
 //legge file non formattati come l'input
-void readFromFileNotForm(path &myPath, char *storingArray, unsigned dataSize){
-    if ( !exists(myPath) )
-		throw std::string("file "+myPath.string()+" doesn't exist");
+void readFromFileNotForm(std::string &myPath, char *storingArray, unsigned dataSize){
+    //if ( !file_exists(myPath) )
+	//	throw std::string("file doesn't exist");
 	if ( !storingArray )
 		throw std::string("readFromFileNotForm: array not allocated");
 
 	std::ifstream inStream;
-	inStream.open( myPath.string().c_str(), std::ifstream::binary );
+	inStream.open( myPath.c_str(), std::ifstream::binary );
 	inStream.read(storingArray, dataSize);
 	inStream.close();
 }
 
 //legge file formattati come la chiave (esadecimali separati da spazi)
-void readFromFileForm(path &myPath, std::vector<unsigned> &storingArray){
-	if ( !exists(myPath) )
-		throw std::string("file "+myPath.string()+" doesn't exist");
+void readFromFileForm(std::string &myPath, std::vector<unsigned> &storingArray){
+	//if ( !file_exists(inStream) )
+	//	throw std::string("file doesn't exist");
 	if ( storingArray.size()!=32 && storingArray.size()!=16)
 		throw std::string("readFromFileForm: storing array of wrong dimension");
 
 	std::ifstream inStream;
 	inStream>>std::hex;
-	inStream.open( myPath.string().c_str() );
+	inStream.open( myPath.c_str() );
 	
 	for (unsigned cnt=0; cnt<storingArray.size(); ++cnt){
 		inStream >> storingArray[cnt];
