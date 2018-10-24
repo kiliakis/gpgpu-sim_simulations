@@ -415,7 +415,7 @@ template <class T>
 bool
 runTest( int argc, char** argv, ReduceType datatype) 
 {
-    int size = 1<<21;    // number of elements to reduce
+    int size = 1<<19;    // number of elements to reduce
     int maxThreads = 256;  // number of threads per block
     int whichKernel = 6;
     int maxBlocks = 64;

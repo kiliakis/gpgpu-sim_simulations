@@ -50,7 +50,7 @@ sdk-4.1.15:
         - sortingNetworks-sdk-4.1.15:
             - 
         - transpose-sdk-4.1.15:
-            - --dimY=512 --dimX=512
+            - --dimY=256 --dimX=256
         - vectorAdd-sdk-4.1.15:
             - 
         - nbody-sdk-4.1.15:
