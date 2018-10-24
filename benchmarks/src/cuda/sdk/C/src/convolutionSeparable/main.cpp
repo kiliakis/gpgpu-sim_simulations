@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 
     const int imageW = 2048;
     const int imageH = 2048;
-    const int iterations = 4;
+    const int iterations = 2;
 
     unsigned int hTimer;
 

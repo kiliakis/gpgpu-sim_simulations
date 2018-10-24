@@ -21,10 +21,10 @@ ispass2009-1.0:
     exec_dir: "../../benchmarks/bin/4.2/release/"
     data_dirs: "../../benchmarks/data_dirs/cuda/ispass2009/"
     execs:
-        - AES-ispass2009-1.0:
-            - e 128 ./data/output.bmp ./data/key128.txt 
+        # - AES-ispass2009-1.0:
+        #     - e 128 ./data/output.bmp ./data/key128.txt 
         - BFS-ispass2009-1.0:
-            - ./data/graph4096.txt
+            - ./data/graph65536.txt
         # - DG-ispass2009-1.0:
         - LIB-ispass2009-1.0:
             - 
