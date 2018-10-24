@@ -86,16 +86,28 @@ void usage() {
 	exit(0);
 }
 
+bool file_exists(const ifstream& name){
+	return name.good();
+}
+
+long int fileSize(const ifstream& f){
+	return f.tellg();
+}
+
 //funzione principale
 unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const unsigned int myKeyBitsSize, std::string myInputFile, char inputArray[], const unsigned inputArraySize){
 	
-	path inputPath(myInputFile.c_str());
-	path keyPath(myKeyFile.c_str());
-	
-	if ( !exists(keyPath) )
+	// path inputPath(myInputFile.c_str());
+	// path keyPath(myKeyFile.c_str());
+	ifstream inputPath(myInputFile.c_str(), std::ios::binary | std::ios::ate);
+	ifstream keyPath(myKeyFile.c_str(), std::ios::binary | std::ios::ate);
+
+	// if ( !exists(keyPath) )
+	if ( !file_exists(keyPath) )
 		throw std::string("file "+keyPath.string()+" doesn't exist");
 
-	if ( !exists(inputPath) )
+	// if ( !exists(inputPath) )
+	if ( !file_exists(inputPath) )
 		throw std::string("file "+inputPath.string()+" doesn't exist");
 	
 	if ( myKeyBitsSize!=256 && myKeyBitsSize!=128)
@@ -107,8 +119,10 @@ unsigned initAesCuda(std::string myKeyFile, unsigned char myKeyBuffer[], const u
 	if ( !inputArray )
 		throw std::string("input array not allocated");
 
-	boost::intmax_t inputFileSize	= getFileSize(inputPath);
-	boost::intmax_t keyFileSize		= getFileSize(keyPath);
+	// boost::intmax_t inputFileSize	= getFileSize(inputPath);
+	// boost::intmax_t keyFileSize		= getFileSize(keyPath);
+	boost::intmax_t inputFileSize	= fileSize(inputPath);
+	boost::intmax_t keyFileSize		= fileSize(keyPath);
 
 	if ( keyFileSize==0 ) 
 		throw std::string("cannot use an empty input file");
