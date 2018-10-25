@@ -15,7 +15,7 @@
 #define NMAT 40
 #define L2_SIZE 3280 //NN*(NMAT+1)
 #define NOPT 15
-#define NPATH 4096
+#define NPATH 2048
 
 // constant data for swaption portfolio: stored in device memory,
 // initialised by host and read by device threads

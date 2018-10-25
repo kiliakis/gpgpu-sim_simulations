@@ -33,11 +33,11 @@ ispass2009-1.0:
         - MUM-ispass2009-1.0:
             - ./data/NC_003997.20k.fna ./data/NC_003997_q25bp.50k.fna
         - NN-ispass2009-1.0:
-            - "28"
+            - 28
         - NQU-ispass2009-1.0:
             - 
         - RAY-ispass2009-1.0:
-            - "256 256"
+            - 32 32
         - STO-ispass2009-1.0:
             - 
         # - WP-ispass2009-1.0:
