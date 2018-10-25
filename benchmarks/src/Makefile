@@ -12,7 +12,7 @@ SDK_SETENV=export BINDIR=$(BINDIR); \
    	export ROOTOBJDIR=obj_$(CUDA_VERSION); \
 	export EXESUFFIX=-sdk-4.1.15;
 
-PARBOIL_SETENV := CUDA_PATH=$(CUDA_INSTALL_PATH)
+PARBOIL_SETENV := CUDA_PATH=$(CUDA_INSTALL_PATH) CUDAHOME=$(CUDA_INSTALL_PATH)
 PARBOIL_MAKE_ARGS := -f $(shell pwd)/cuda/parboil/common/mk/Makefile \
 	BUILDDIR=build/cuda_default \
 	PARBOIL_ROOT=$(shell pwd)/cuda/parboil \
