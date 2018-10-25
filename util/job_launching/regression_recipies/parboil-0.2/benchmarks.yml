@@ -27,8 +27,8 @@ parboil-0.2:
             - -i ./data/NY/input/graph_input.dat
         - stencil-parboil-0.2:
             - 128 128 32 1 -i ./data/small/input/128x128x32.bin
-        # - tpacf-parboil-0.2:
-            # - -p1000 -n1
+        - tpacf-parboil-0.2:
+            - -i ./data/small/input/Datapnts.1,./data/small/input/Randompnts.1 -- -p487 -n1
         - lbm-parboil-0.2:
             - 1 -i ./data/short/input/120_120_150_ldc.of
         - mri-gridding-parboil-0.2:
