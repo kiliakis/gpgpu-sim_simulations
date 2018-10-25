@@ -23,20 +23,20 @@ parboil-0.2:
     execs:
         - spmv-parboil-0.2:
             - -i ./data/small/input/1138_bus.mtx,./data/small/input/vector.bin
-        - bfs-parboil-0.2:
-            - -i ./data/NY/input/graph_input.dat
+        # - bfs-parboil-0.2:
+        #     - -i ./data/NY/input/graph_input.dat
         - stencil-parboil-0.2:
-            - 128 128 32 1 -i ./data/small/input/128x128x32.bin
+            - -i ./data/small/input/128x128x32.bin -- 128 128 32 1 
         - tpacf-parboil-0.2:
             - -i ./data/small/input/Datapnts.1,./data/small/input/Randompnts.1 -- -p487 -n1
-        - lbm-parboil-0.2:
-            - 1 -i ./data/short/input/120_120_150_ldc.of
-        - mri-gridding-parboil-0.2:
-            - -i ./data/small/input/small.uks
+        # - lbm-parboil-0.2:
+        #     - -i ./data/short/input/120_120_150_ldc.of -- 1
+        # - mri-gridding-parboil-0.2:
+        #     - -i ./data/small/input/small.uks -- 32 0
         - sad-parboil-0.2:
             - -i ./data/default/input/reference.bin,./data/default/input/frame.bin
         - histo-parboil-0.2:
-            - 1 ./data/default/input/img.bin
+            - ./data/default/input/img.bin -- 1
         - sgemm-parboil-0.2:
             - -i ./data/small/input/matrix1.txt,./data/small/input/matrix2.txt,./data/small/input/matrix2t.txt
         - mri-q-parboil-0.2:
