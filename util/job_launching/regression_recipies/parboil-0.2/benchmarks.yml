@@ -22,24 +22,24 @@ parboil-0.2:
     data_dirs: "../../benchmarks/data_dirs/cuda/parboil/datasets/"
     execs:
         - spmv-parboil-0.2:
-            - -i small/input/1138_bus.mtx,small/input/vector.bin
+            - -i ./small/input/1138_bus.mtx,./small/input/vector.bin
         - bfs-parboil-0.2:
-            - -i NY/graph_input.dat
+            - -i ./NY/input/graph_input.dat
         - stencil-parboil-0.2:
-            - 128 128 32 1 -i small/input/128x128x32.bin
+            - 128 128 32 1 -i ./small/input/128x128x32.bin
         - tpacf-parboil-0.2:
             - -p1000 -n1
         - lbm-parboil-0.2:
-            - 1 -i short/input/120_120_150_ldc.of
+            - 1 -i ./short/input/120_120_150_ldc.of
         - mri-gridding-parboil-0.2:
-            - -i small/input/small.uks
+            - -i ./small/input/small.uks
         - sad-parboil-0.2:
-            - -i default/input/reference.bin,default/input/frame.bin
+            - -i ./default/input/reference.bin,./default/input/frame.bin
         - histo-parboil-0.2:
-            - 1 default/input/img.bin
+            - 1 ./default/input/img.bin
         - sgemm-parboil-0.2:
-            - -i small/input/matrix1.txt,small/input/matrix2.txt,small/input/matrix2t.txt
+            - -i ./small/input/matrix1.txt,./small/input/matrix2.txt,./small/input/matrix2t.txt
         - mri-q-parboil-0.2:
-            - -i small/input/32_32_32_dataset.bin
+            - -i ./small/input/32_32_32_dataset.bin
         - cutcp-parboil-0.2:
-            - -i small/input/watbox.sl40.pqr
+            - -i ./small/input/watbox.sl40.pqr
