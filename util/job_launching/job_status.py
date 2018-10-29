@@ -140,8 +140,12 @@ stats_to_pull = { "SIM_TIME": "gpgpu_simulation_time\s*=[^1-9]*(.*)",
                   "TOT_INSN" : "gpu_tot_sim_insn\s*=\s*(.*)",
                   "TOT_IPC" : "gpu_tot_ipc\s*=\s*(.*)" }
 
-ROW_STRING = "{jobId:<10.10}\t{exec_node:<30.30}\t{app:<20.20}\t{args:<20.20}\t" +\
-             "{gpusim_version:20.20}\t{config:20.20}\t{status:40.40}\t{stat:50}"
+#ROW_STRING = "{jobId:<10.10}\t{exec_node:<30.30}\t{app:<20.20}\t{args:<20.20}\t" +\
+#ROW_STRING = "{jobId:<10.10}\t{app:<20.20}\t{args:<20.20}\t" +\
+#             "{gpusim_version:20.20}\t{config:20.20}\t{status:40.40}\t{stat:50}"
+
+ROW_STRING = "{jobId:<7.7}\t{app:<5.5}\t{args:<5.5}\t" +\
+             "{config:20.20}\t{status:30.30}\t{stat:50}"
 
 # At this point we have the logfile we want to get a synopsis for.
 for logfile in parsed_logfiles:
@@ -154,9 +158,10 @@ for logfile in parsed_logfiles:
 
     # Parse the logfile for job ids
     with open( logfile ) as f:
-        header = ROW_STRING.format( jobId="TorqueJob",exec_node="Node",app="App",args="AppArgs",
-                gpusim_version="GPGPU-SimVersion",config="GPGPU-SimConfig",
-                status="JobStatus", stat="Basic GPGPU-Sim Stats" )
+        #header = ROW_STRING.format( jobId="TorqueJob",exec_node="Node",app="App",args="AppArgs",
+        header = ROW_STRING.format( jobId="JobID",app="App",args="AppArgs",
+                config="Config",
+                status="JobStatus", stat="Basic Stats" )
         print header
         print "-" * len(header)
 
@@ -237,9 +242,9 @@ for logfile in parsed_logfiles:
                 status_string = "COMPLETE_ERR_FILE_HAS_CONTENTS"
 
             gpgpu_git_commit = re.sub(r".*-commit-([^_]{7})[^_]+_(.*)\.so", r"\1-\2", jobname)
-            job_summary = ROW_STRING.format( jobId=jobId, exec_node=exec_node, app=app, args=args,
-                            config=config, status=status_string, stat=additional_stats,
-                            gpusim_version=gpgpu_git_commit )
+            #job_summary = ROW_STRING.format( jobId=jobId, exec_node=exec_node, app=app, args=args,
+            job_summary = ROW_STRING.format( jobId=jobId, app=app, args=args,
+                            config=config, status=status_string, stat=additional_stats)
             print job_summary
 
             if "FUNC_TEST_PASSED" == status_string:
