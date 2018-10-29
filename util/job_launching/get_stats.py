@@ -198,7 +198,7 @@ csv_str = ""
 stats_to_pull["GPGPU-Sim-build"] = ""
 for stat_name in stats_to_pull:
     csv_str += DIVISION + "\n"
-    csv_str += stat_name + "\n,"
+    csv_str += stat_name + ","
     for config in configs:
         csv_str += config + ","
     csv_str += "\n"
