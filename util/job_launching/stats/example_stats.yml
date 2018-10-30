@@ -22,6 +22,10 @@ collect:
         'gpu_tot_ipc\s*=\s*(.*)'
     L2_total_cache_misses:
         'L2_total_cache_misses\s*=\s*(.*)'
+    L2_total_cache_accesses:
+        'L2_total_cache_accesses\s*=\s*(.*)'
+    L2_total_cache_miss_rate:
+        'L2_total_cache_miss_rate\s*=\s*(.*)'
     L1D_total_cache_misses:
         'L1D_total_cache_misses\s*=\s*(.*)'
     L1D_total_cache_accesses:

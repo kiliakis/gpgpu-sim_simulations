@@ -17,7 +17,7 @@ this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
 
 
 now_time = datetime.datetime.now()
-day_string = now_time.strftime("%y.%m.%d-%A")
+day_string = now_time.strftime("%d.%m.%y")
 time_string = now_time.strftime("%H.%M.%S")
 
 

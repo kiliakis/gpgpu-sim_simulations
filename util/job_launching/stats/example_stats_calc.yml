@@ -42,6 +42,10 @@ collect:
         'last'
     L2_total_cache_misses:
         'last'
+    L2_total_cache_accesses:
+        'last'
+    L2_total_cache_miss_rate:
+        'last'
     L1D_total_cache_misses:
         'last'
     L1D_total_cache_accesses:

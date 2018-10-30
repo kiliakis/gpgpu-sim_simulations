@@ -214,17 +214,17 @@ for app_and_args in apps_and_args:
 
 
 
-rows = [['config', 'app_and_args', 'metric', '#kernels', 'valuelist']]
+rows = [['app_and_args', 'config', 'metric', 'num_kernels', 'valuelist']]
 
-for config in configs:
-    for appargs in apps_and_args:
+for appargs in apps_and_args:
+    for config in configs:
         for stat_name in stats_to_pull:
-            row = [config, appargs, stat_name]
+            row = [appargs, config, stat_name]
             if appargs + config + stat_name in stat_map:
                 row.append(len(stat_map[appargs + config + stat_name]))
                 row.append('|'.join(stat_map[appargs + config + stat_name]))
             else:
-                row += ['0', 'NA']
+                row += ['0', 'nan']
             rows.append(row)
 
 
@@ -234,7 +234,7 @@ if options.file != 'stdout':
         writer.writerows(rows)
 else:
     for r in rows:
-        print '{:<20.20}\t{:<25.25}\t{:<20.20}\t{:<4}\t{:<50.50}'.format(*r)
+        print '{:<25.25}\t{:<20.20}\t{:<20.20}\t{:<4}\t{:<50.50}'.format(*r)
 
         
 # # After collection, spew out the tables
