@@ -8,9 +8,8 @@ import sys
 import common
 import math
 import yaml
-import csv
 
-# this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
+this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
 
 #*********************************************************--
 # main script start
@@ -57,15 +56,10 @@ parser.add_option("-a", "--apps_yml", dest="apps_yml", default="",
 parser.add_option("-s", "--stats_yml", dest="stats_yml", default="",
                   help="The yaml file that defines the stats you want to collect."+\
                        " by default it uses stats/example_stats.yml")
-
-parser.add_option("-f", "--file", dest="file", default="stdout",
-                  help="Print to the stdout or save to file.")
-
 (options, args) = parser.parse_args()
 options.logfile = options.logfile.strip()
 options.run_dir = options.run_dir.strip()
 options.sim_name = options.sim_name.strip()
-options.file = options.file.strip()
 
 cuda_version = common.get_cuda_version()
 options.run_dir = common.dir_option_test( options.run_dir, this_directory + ("../../sim_run_%s/"%cuda_version),
@@ -211,54 +205,29 @@ for app_and_args in apps_and_args:
                     # stat_map[app_and_args + config + stat_name] = number
             #if len(stat_found) == len(stats_to_pull):
             #    break
-
-
-
-rows = [['config', 'app_and_args', 'metric', '#kernels', 'valuelist']]
-
-for config in configs:
-    for appargs in apps_and_args:
-        for stat_name in stats_to_pull:
-            row = [config, appargs, stat_name]
-            if appargs + config + stat_name in stat_map:
-                row.append(len(stat_map[appargs + config + stat_name]))
-                row.append('|'.join(stat_map[appargs + config + stat_name]))
-            else:
-                row += ['0', 'NA']
-            rows.append(row)
-
-
-if options.file != 'stdout':
-    with open(options.file, 'w') as f:
-        writer = csv.writer(f, delimiter='\t')
-        writer.writerows(rows)
-else:
-    for r in rows:
-        print '{:<20.20}\t{:<25.25}\t{:<20.20}\t{:<4}\t{:<50.50}'.format(*r)
-
         
-# # After collection, spew out the tables
-# DIVISION = "-" * 100
-# csv_str = ""
+# After collection, spew out the tables
+DIVISION = "-" * 100
+csv_str = ""
 
-# # Just adding this in here since it is a special case and is not parsed like 
-# # everything else, because you need to read from the beginning not the end
-# stats_to_pull["GPGPU-Sim-build"] = ""
-# for stat_name in stats_to_pull:
-#     csv_str += DIVISION + "\n"
-#     csv_str += stat_name + ","
-#     for config in configs:
-#         csv_str += config + ","
-#     csv_str += "\n"
-#     for appargs in apps_and_args:
-#         csv_str += appargs + ","
-#         times = max([len(stat_map[appargs + config + stat_name]) for config in configs if appargs + config + stat_name in stat_map]+[1])
-#         for config in configs:
-#             if appargs + config + stat_name in stat_map:
-#                 csv_str += ",".join(stat_map[appargs + config + stat_name]) + ","
-#             else:
-#                 csv_str += "NA,"*times
-#         csv_str += "\n"
-#     csv_str += "\n"
+# Just adding this in here since it is a special case and is not parsed like 
+# everything else, because you need to read from the beginning not the end
+stats_to_pull["GPGPU-Sim-build"] = ""
+for stat_name in stats_to_pull:
+    csv_str += DIVISION + "\n"
+    csv_str += stat_name + ","
+    for config in configs:
+        csv_str += config + ","
+    csv_str += "\n"
+    for appargs in apps_and_args:
+        csv_str += appargs + ","
+        times = max([len(stat_map[appargs + config + stat_name]) for config in configs if appargs + config + stat_name in stat_map]+[1])
+        for config in configs:
+            if appargs + config + stat_name in stat_map:
+                csv_str += ",".join(stat_map[appargs + config + stat_name]) + ","
+            else:
+                csv_str += "NA,"*times
+        csv_str += "\n"
+    csv_str += "\n"
 
-# print csv_str
+print csv_str

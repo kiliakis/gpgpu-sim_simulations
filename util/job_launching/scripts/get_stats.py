@@ -8,9 +8,8 @@ import sys
 import common
 import math
 import yaml
-import csv
 
-# this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
+this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
 
 #*********************************************************--
 # main script start
@@ -57,15 +56,10 @@ parser.add_option("-a", "--apps_yml", dest="apps_yml", default="",
 parser.add_option("-s", "--stats_yml", dest="stats_yml", default="",
                   help="The yaml file that defines the stats you want to collect."+\
                        " by default it uses stats/example_stats.yml")
-
-parser.add_option("-f", "--file", dest="file", default="stdout",
-                  help="Print to the stdout or save to file.")
-
 (options, args) = parser.parse_args()
 options.logfile = options.logfile.strip()
 options.run_dir = options.run_dir.strip()
 options.sim_name = options.sim_name.strip()
-options.file = options.file.strip()
 
 cuda_version = common.get_cuda_version()
 options.run_dir = common.dir_option_test( options.run_dir, this_directory + ("../../sim_run_%s/"%cuda_version),
@@ -168,97 +162,54 @@ for app_and_args in apps_and_args:
                 break
             build_match = re.match(".*\[build\s+(.*)\].*", line)
             if build_match:
-                stat_map[app_and_args + config + "GPGPU-Sim-build"] = [build_match.group(1)]
+                stat_map[app_and_args + config + "GPGPU-Sim-build"] = build_match.group(1)
                 break
 
 
         # Only go up for 10000 lines looking for stuff
         MAX_LINES = 100000
         count = 0
-        '''
-        for stat_name, token in stats_to_pull.iteritems():
-            if stat_name in stat_found:
-                continue
-            for line in open(outfile).readlines():
-                existance_test = token.search(line.rstrip())
-                if existance_test != None:
-                    stat_found.add(stat_name)
-
-            #existance_test = token.findall(open(outfile).readlines())
-            #if len(existance_test) > 0:
-            #    stat_found.add(stat_name)
-            if len(stat_found) == len(stats_to_pull):
+        for line in reversed(open(outfile).readlines()):
+            count += 1
+            if count >= MAX_LINES:
                 break
-        '''
-
-        for line in open(outfile).readlines():
-            #count += 1
-            #if count >= MAX_LINES:
-            #    break
 
             # pull out some stats
             for stat_name, token in stats_to_pull.iteritems():
-                #if stat_name in stat_found:
-                #    continue
+                if stat_name in stat_found:
+                    continue
                 existance_test = token.search( line.rstrip() )
-                #existance_test = token.findall( line.rstrip() )
                 if existance_test != None:
                     stat_found.add(stat_name)
                     number = existance_test.group(1).strip()
-                    if app_and_args + config + stat_name not in stat_map:
-                        stat_map[app_and_args + config + stat_name] = []
-                    stat_map[app_and_args + config + stat_name].append(number)
-                    # stat_map[app_and_args + config + stat_name] = number
-            #if len(stat_found) == len(stats_to_pull):
-            #    break
+                    # if app_and_args + config + stat_name not in stat_map:
+                    #     stat_map[app_and_args + config + stat_name] = []
+                    # stat_map[app_and_args + config + stat_name].append(number)
+                    stat_map[app_and_args + config + stat_name] = number
+            if len(stat_found) == len(stats_to_pull):
+                break
 
+# After collection, spew out the tables
+DIVISION = "-" * 100
+csv_str = ""
 
-
-rows = [['config', 'app_and_args', 'metric', '#kernels', 'valuelist']]
-
-for config in configs:
+# Just adding this in here since it is a special case and is not parsed like 
+# everything else, because you need to read from the beginning not the end
+stats_to_pull["GPGPU-Sim-build"] = ""
+for stat_name in stats_to_pull:
+    csv_str += DIVISION + "\n"
+    csv_str += stat_name + ","
+    for config in configs:
+        csv_str += config + ","
+    csv_str += "\n"
     for appargs in apps_and_args:
-        for stat_name in stats_to_pull:
-            row = [config, appargs, stat_name]
+        csv_str += appargs + ","
+        for config in configs:
             if appargs + config + stat_name in stat_map:
-                row.append(len(stat_map[appargs + config + stat_name]))
-                row.append('|'.join(stat_map[appargs + config + stat_name]))
+                csv_str += stat_map[appargs + config + stat_name] + ","
             else:
-                row += ['0', 'NA']
-            rows.append(row)
+                csv_str += "NA,"
+        csv_str += "\n"
+    csv_str += "\n"
 
-
-if options.file != 'stdout':
-    with open(options.file, 'w') as f:
-        writer = csv.writer(f, delimiter='\t')
-        writer.writerows(rows)
-else:
-    for r in rows:
-        print '{:<20.20}\t{:<25.25}\t{:<20.20}\t{:<4}\t{:<50.50}'.format(*r)
-
-        
-# # After collection, spew out the tables
-# DIVISION = "-" * 100
-# csv_str = ""
-
-# # Just adding this in here since it is a special case and is not parsed like 
-# # everything else, because you need to read from the beginning not the end
-# stats_to_pull["GPGPU-Sim-build"] = ""
-# for stat_name in stats_to_pull:
-#     csv_str += DIVISION + "\n"
-#     csv_str += stat_name + ","
-#     for config in configs:
-#         csv_str += config + ","
-#     csv_str += "\n"
-#     for appargs in apps_and_args:
-#         csv_str += appargs + ","
-#         times = max([len(stat_map[appargs + config + stat_name]) for config in configs if appargs + config + stat_name in stat_map]+[1])
-#         for config in configs:
-#             if appargs + config + stat_name in stat_map:
-#                 csv_str += ",".join(stat_map[appargs + config + stat_name]) + ","
-#             else:
-#                 csv_str += "NA,"*times
-#         csv_str += "\n"
-#     csv_str += "\n"
-
-# print csv_str
+print csv_str
