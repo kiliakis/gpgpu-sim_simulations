@@ -9,3 +9,8 @@ sim_run_*
 *.ptx
 *.__afs*
 benchmarks/**/bin
+benchmarks/**/data
+benchmarks/**/OpenCL
+benchmarks/**/doc
+benchmarks/**/CUDALibraries
+benchmarks/src/cuda/rodinia/3.1/

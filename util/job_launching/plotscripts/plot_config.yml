@@ -110,7 +110,7 @@ subplots_one_line_per_bench.py:
         - gpu_tot_ipc
         - L1D_total_cache_miss_rate
         - L2_total_cache_miss_rate
-        - W_Occupancy
+        # - W_Occupancy
         - Utilization
         # - L1I_total_cache_miss_rate
         # - averagemflatency
