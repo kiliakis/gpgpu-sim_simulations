@@ -2,7 +2,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 # import matplotlib.lines as mlines
-# import matplotlib.ticker
+import matplotlib.ticker
+from matplotlib.ticker import FormatStrFormatter
 import argparse
 import matplotlib.gridspec as gridspec
 from plot.plotting_utilities import *
@@ -81,11 +82,14 @@ if __name__ == '__main__':
     # iterate over the figdir and plot
     for metric in figdir.keys():
         for knob in figdir[metric].keys():
+            outdir = args.outdir + '/' + globyc['knobs'][knob]
+            if not os.path.exists(outdir):
+                os.makedirs(outdir)
             fig = plt.figure(
                 figsize=(locyc['figsize']['w'], locyc['figsize']['h']))
-            fig.suptitle('{}  {}'.format(globyc['stat_shorts'][metric],
-                                         globyc['knobs'][knob]))
-            outfile = '{}/{}-{}.jpeg'.format(args.outdir,
+            fig.suptitle('Knob:{}, Stat:{}'.format(globyc['knobs'][knob],
+                                                   globyc['stat_shorts'][metric]))
+            outfile = '{}/{}-{}.jpeg'.format(outdir,
                                              globyc['stat_shorts'][metric],
                                              globyc['knobs'][knob])
             rows = locyc['grid']['rows']
@@ -105,10 +109,20 @@ if __name__ == '__main__':
                 #     ax.set_ylabel(metric)
                 # if idx//cols == rows-1:
                 #     ax.set_xlabel(knob)
-                ax.plot(x, y, label=globyc['bench_shorts'][app])
-                ax.legend(loc='upper left')
+                y = y / y[0]
+                ax.plot(x, y, label=globyc['bench_shorts']
+                        [app], marker=locyc['marker'])
+                ax.legend(**locyc['legend'])
+                ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(
+                    nbins=locyc['nticks']['y'], integer=True))
+                ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(
+                    nbins=locyc['nticks']['x'], integer=True))
+                ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+                # ax.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
+                # ax2.yaxis.set_major_locator(matplotlib.ticker.LinearLocator(nticks))
                 idx += 1
-                # plt.tight_layout()
+            plt.tight_layout()
+            plt.subplots_adjust(wspace=0.3, hspace=0.15, top=0.95)
             save_and_crop(fig, outfile, dpi=600, bbox_inches='tight')
             if args.show:
                 plt.show()

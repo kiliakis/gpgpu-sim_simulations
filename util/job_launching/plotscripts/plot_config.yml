@@ -1,8 +1,4 @@
 global:
-    colors:
-
-    markers:
-
     knobs_shorts: 
         gpgpu_max_insn_issue_per_warp: "mxiipw"
         gpgpu_num_sched_per_core: "nspc"
@@ -26,8 +22,8 @@ global:
         gpgpu_num_sp_units: "nspu"
         gpgpu_num_sfu_units: "nsfu"
         gpgpu_num_mem_units: "nmu"
-        gpgpu_cached:l1: "cdl1"
-        gpgpu_cached:l2: "cdl2"
+        gpgpu_cache:dl1: "cdl1"
+        gpgpu_cache:dl2: "cdl2"
     
     knobs: 
         mxiipw: "max_insn_issue_per_warp"
@@ -62,6 +58,7 @@ global:
         gpu_tot_sim_insn: "tot_insn"
         gpu_sim_insn: "insn"
         gpu_sim_cycle: "cycles"
+        gpu_tot_sim_cycle: "tot_cycles"
         gpu_tot_ipc: "tot_ipc"
         L2_total_cache_misses: "tot_L2_misses"
         L1D_total_cache_misses: "tot_L1D_misses"
@@ -73,11 +70,13 @@ global:
         L1I_total_cache_misses: "tot_L1I_misses"
         L1I_total_cache_miss_rate: "tot_L1I_miss_rate"
         averagemflatency: "mem_fetch_latency"
-        Stall: "stall_cycles"
-        W0_Idle: "idle_cycles"
-        W0_Scoreboard: "scoreboard"
-        "L2_BW(GBpersec)": "L2_BW(GBps)"
-        "L2_BW_total(GBpersec)": "tot_L2_BW(GBps)"
+        Stall: "warp_stall_cycles"
+        W0_Idle: "warp_idle_cycles"
+        W0_Scoreboard: "warp_scoreboard_idle"
+        W_Occupancy: "warp_occupancy"
+        Utilization: "warp_utilization"
+        "L2_BW(GBps)": "L2_BW(GBps)"
+        "L2_BW_total(GBps)": "tot_L2_BW(GBps)"
         gpgpu_n_load_insn: "load_insn"
         bw_util: "bw_util"
         gpgpu_n_store_insn: "store_insn"
@@ -93,6 +92,7 @@ global:
         backprop-rodinia-2.0-ft: bp-rod
         bfs-rodinia-2.0-ft: bfs-rod
         hotspot-rodinia-2.0-ft: hs-rod
+        
         heartwall-rodinia-2.0-ft: hw-rod
         kmeans-rodinia-2.0-ft: km-rod
         lud-rodinia-2.0-ft: lud-rod
@@ -106,25 +106,42 @@ global:
 subplots_one_line_per_bench.py:
     stats_to_plot:
         # - "gpgpu_simulation_time(sec)"
+        - gpu_tot_sim_cycle
         - gpu_tot_ipc
         - L1D_total_cache_miss_rate
         - L2_total_cache_miss_rate
-        - L1I_total_cache_miss_rate
-        - averagemflatency
+        - W_Occupancy
+        - Utilization
+        # - L1I_total_cache_miss_rate
+        # - averagemflatency
         # - "L2_BW(GBpersec)"
-        - "L2_BW_total(GBpersec)"
+        # - "L2_BW_total(GBpersec)"
         # - gpgpu_n_store_insn
         # - gpgpu_n_mem_read_local
         # - gpgpu_n_mem_read_global
         # - gpgpu_n_mem_write_local
         # - gpgpu_n_mem_write_global
-        - gpgpu_n_stall_shd_mem_stall
+        # - gpgpu_n_stall_shd_mem_stall
     grid:
         columns: 4
         rows: 3
     figsize: 
-        w: 4
-        h: 4
+        w: 8
+        h: 6
+    nticks:
+        x: 3
+        y: 3
+    marker: '+'
+    legend:
+        loc: 'best'
+        handlelength: 0
+        fancybox: True
+        framealpha: 0.5
+        fontsize: 9.5
+        labelspacing: 0
+        borderpad: 0.5
+        handletextpad: 0.5
+        borderaxespad: 0
 
     knobs_to_plot: 
         - mxiipw
@@ -135,19 +152,19 @@ subplots_one_line_per_bench.py:
         - nrb
         - snb 
         - ss
-        - nc
-        - ncpc
-        - ocnusp
-        - ocnusfu
-        - ocnum
-        - ocnipsp
-        - ocnipsfu
-        - ocnipm
-        - ocnopsp
-        - ocnopsfu
-        - ocnopm
         - nspu
         - nsfu
         - nmu
-        - cdl1 
-        - cdl2 
+        # - cdl1 
+        # - cdl2 
+        # - nc
+        # - ncpc
+        # - ocnusp
+        # - ocnusfu
+        # - ocnum
+        # - ocnipsp
+        # - ocnipsfu
+        # - ocnipm
+        # - ocnopsp
+        # - ocnopsfu
+        # - ocnopm

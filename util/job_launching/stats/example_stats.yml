@@ -18,6 +18,8 @@ collect:
         'gpu_sim_insn\s*=\s*(.*)'
     gpu_sim_cycle:
         'gpu_sim_cycle\s*=\s*(.*)'
+    gpu_tot_sim_cycle:
+        'gpu_tot_sim_cycle\s*=\s*(.*)'
     gpu_tot_ipc:
         'gpu_tot_ipc\s*=\s*(.*)'
     L2_total_cache_misses:
@@ -44,11 +46,15 @@ collect:
         'Stall:\s*([0-9]+).*'
     W0_Idle:
         'W0_Idle:\s*([0-9]+).*'
+    W_Occupancy:
+        'W_Occupancy:\s*([0-9]+\.[0-9]+)\.*'
+    Utilization:
+        'Utilization:\s*([0-9]+\.[0-9]+)\.*'
     W0_Scoreboard:
         'W0_Scoreboard:\s*([0-9]+).*'
-    "L2_BW(GBpersec)":
+    "L2_BW(GBps)":
         'L2_BW\s*=\s*(.*)GB.*'
-    "L2_BW_total(GBpersec)":
+    "L2_BW_total(GBps)":
         'L2_BW_total\s*=\s(.*)GB.*'
     gpgpu_n_load_insn:
         'gpgpu_n_load_insn\s*=\s*(.*)'

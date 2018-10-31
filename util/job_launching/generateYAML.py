@@ -69,7 +69,7 @@ configs = {
         {'-gpgpu_shmem_num_banks': [16, 24, 32, 48, 64]},
         {'-gpgpu_shmem_size': [16384, 24576, 32768, 49152, 65536, 81920]},
         #{'-gpgpu_n_clusters': [10, 12, 14, 16, 18, 20]},
-        {'-gpgpu_n_cores_per_cluster': [1, 2, 4, 6, 8]},
+        # {'-gpgpu_n_cores_per_cluster': [1, 2, 4, 6, 8]},
         # {'-gpgpu_operand_collector_num_units_sp': [6]},
         # {'-gpgpu_operand_collector_num_units_sfu': [8]},
         # {'-gpgpu_operand_collector_num_units_mem': [2]},
