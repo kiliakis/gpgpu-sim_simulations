@@ -14,3 +14,9 @@ benchmarks/**/OpenCL
 benchmarks/**/doc
 benchmarks/**/CUDALibraries
 benchmarks/src/cuda/rodinia/3.1/
+benchmarks/src/cuda/common-bk/
+benchmarks/src/cuda/common
+benchmarks/src/cuda/parboil/datasets
+benchmarks/src/cuda/parboil/driver/*-backup0
+util/job_launching/results/
+util/job_launching/logfiles/

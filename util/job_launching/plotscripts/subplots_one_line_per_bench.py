@@ -76,8 +76,9 @@ if __name__ == '__main__':
                 # x = ','.join(m[1].split(':')[0] for m in matches)
                 x = float(matches[0][1].split(':')[0])
                 y = float(datadir[metric][app][conf][1])
-                figdir[metric][knob][app]['x'].append(x)
-                figdir[metric][knob][app]['y'].append(y)
+                if not np.isnan(y):
+                    figdir[metric][knob][app]['x'].append(x)
+                    figdir[metric][knob][app]['y'].append(y)
 
     # iterate over the figdir and plot
     for metric in figdir.keys():
@@ -99,6 +100,7 @@ if __name__ == '__main__':
             for app in figdir[metric][knob].keys():
                 x = np.array(figdir[metric][knob][app]['x'])
                 y = np.array(figdir[metric][knob][app]['y'])
+                
                 app = app.split('/')[0]
                 indices = [i[0]
                            for i in sorted(enumerate(x), key=lambda a:a[1])]
