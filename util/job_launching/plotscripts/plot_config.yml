@@ -101,6 +101,7 @@ global:
         pathfinder-rodinia-2.0-ft: pf-rod
         srad_v2-rodinia-2.0-ft: sr2-rod
         streamcluster-rodinia-2.0-ft: sc-rod
+        average: avg
 
 
 subplots_one_line_per_bench.py:
@@ -131,6 +132,11 @@ subplots_one_line_per_bench.py:
     nticks:
         x: 3
         y: 3
+    ticks:
+        x:
+            fontsize: '8'
+        y: 
+            fontsize: '8'
     marker: '+'
     legend:
         loc: 'best'
@@ -155,6 +161,7 @@ subplots_one_line_per_bench.py:
         - nspu
         - nsfu
         - nmu
+        - "mxiipw,nspu,nsfu,nmu,pw"
         # - cdl1 
         # - cdl2 
         # - nc

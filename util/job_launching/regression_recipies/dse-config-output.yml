@@ -1,0 +1,31 @@
+mxiipw1_nspu4_nsfu2_nmu2_pw402240224:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_max_insn_issue_per_warp 1 -gpgpu_num_sp_units 4 -gpgpu_num_sfu_units
+    2 -gpgpu_num_mem_units 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4 -gpgpu_num_dp_units
+    0
+mxiipw2_nspu4_nsfu2_nmu2_pw402240224:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_max_insn_issue_per_warp 2 -gpgpu_num_sp_units 4 -gpgpu_num_sfu_units
+    2 -gpgpu_num_mem_units 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4 -gpgpu_num_dp_units
+    0
+mxiipw3_nspu4_nsfu2_nmu2_pw402240224:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_max_insn_issue_per_warp 3 -gpgpu_num_sp_units 4 -gpgpu_num_sfu_units
+    2 -gpgpu_num_mem_units 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4 -gpgpu_num_dp_units
+    0
+mxiipw4_nspu4_nsfu2_nmu2_pw402240224:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_max_insn_issue_per_warp 4 -gpgpu_num_sp_units 4 -gpgpu_num_sfu_units
+    2 -gpgpu_num_mem_units 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4 -gpgpu_num_dp_units
+    0
+mxiipw5_nspu4_nsfu2_nmu2_pw402240224:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_max_insn_issue_per_warp 5 -gpgpu_num_sp_units 4 -gpgpu_num_sfu_units
+    2 -gpgpu_num_mem_units 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4 -gpgpu_num_dp_units
+    0
+run:
+- mxiipw3_nspu4_nsfu2_nmu2_pw402240224
+- mxiipw2_nspu4_nsfu2_nmu2_pw402240224
+- mxiipw5_nspu4_nsfu2_nmu2_pw402240224
+- mxiipw1_nspu4_nsfu2_nmu2_pw402240224
+- mxiipw4_nspu4_nsfu2_nmu2_pw402240224

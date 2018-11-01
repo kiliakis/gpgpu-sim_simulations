@@ -73,7 +73,8 @@ if __name__ == '__main__':
                     figdir[metric][knob] = {}
                 if app not in figdir[metric][knob]:
                     figdir[metric][knob][app] = {'x': [], 'y': []}
-                # x = ','.join(m[1].split(':')[0] for m in matches)
+
+                # Only using the first knob
                 x = float(matches[0][1].split(':')[0])
                 y = float(datadir[metric][app][conf][1])
                 if not np.isnan(y):
@@ -83,24 +84,27 @@ if __name__ == '__main__':
     # iterate over the figdir and plot
     for metric in figdir.keys():
         for knob in figdir[metric].keys():
-            outdir = args.outdir + '/' + globyc['knobs'][knob]
+            # Only using the first knob
+            knob1 = knob.split(',')[0]
+            outdir = args.outdir + '/' + globyc['knobs'][knob1]
             if not os.path.exists(outdir):
                 os.makedirs(outdir)
             fig = plt.figure(
                 figsize=(locyc['figsize']['w'], locyc['figsize']['h']))
-            fig.suptitle('Knob:{}, Stat:{}'.format(globyc['knobs'][knob],
+            fig.suptitle('Knob:{}, Stat:{}'.format(globyc['knobs'][knob1],
                                                    globyc['stat_shorts'][metric]))
             outfile = '{}/{}-{}.jpeg'.format(outdir,
                                              globyc['stat_shorts'][metric],
-                                             globyc['knobs'][knob])
+                                             globyc['knobs'][knob1])
             rows = locyc['grid']['rows']
             cols = locyc['grid']['columns']
             gs = gridspec.GridSpec(rows, cols)
             idx = 0
+            yavg_l = []
             for app in figdir[metric][knob].keys():
                 x = np.array(figdir[metric][knob][app]['x'])
                 y = np.array(figdir[metric][knob][app]['y'])
-                
+
                 app = app.split('/')[0]
                 indices = [i[0]
                            for i in sorted(enumerate(x), key=lambda a:a[1])]
@@ -112,6 +116,7 @@ if __name__ == '__main__':
                 # if idx//cols == rows-1:
                 #     ax.set_xlabel(knob)
                 y = y / y[0]
+                yavg_l.append((x, y))
                 ax.plot(x, y, label=globyc['bench_shorts']
                         [app], marker=locyc['marker'])
                 ax.legend(**locyc['legend'])
@@ -119,10 +124,37 @@ if __name__ == '__main__':
                     nbins=locyc['nticks']['y'], integer=True))
                 ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(
                     nbins=locyc['nticks']['x'], integer=True))
-                ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
+                ax.yaxis.set_major_formatter(FormatStrFormatter('%.3f'))
+                plt.xticks(**locyc['ticks']['x'])
+                plt.yticks(**locyc['ticks']['y'])
                 # ax.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
                 # ax2.yaxis.set_major_locator(matplotlib.ticker.LinearLocator(nticks))
                 idx += 1
+            # Plot the average
+            x = set()
+            for d in yavg_l:
+                x |= set(d[0])
+            x = list(x)
+            y = np.zeros(len(x))
+            ynum = np.zeros(len(x))
+            for d in yavg_l:
+                for i in range(len(d[0])):
+                    y[x.index(d[0][i])] += d[1][i]
+                    ynum[x.index(d[0][i])] += 1
+            y /= ynum
+            ax = plt.subplot(gs[idx//cols, idx % cols])
+            ax.plot(x, y, label=globyc['bench_shorts']
+                    ['average'], marker=locyc['marker'])
+            ax.legend(**locyc['legend'])
+            ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(
+                nbins=locyc['nticks']['y'], integer=True))
+            ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(
+                nbins=locyc['nticks']['x'], integer=True))
+            ax.yaxis.set_major_formatter(FormatStrFormatter('%.3f'))
+            plt.xticks(**locyc['ticks']['x'])
+            plt.yticks(**locyc['ticks']['y'])
+            # end plot the average
+
             plt.tight_layout()
             plt.subplots_adjust(wspace=0.3, hspace=0.15, top=0.95)
             save_and_crop(fig, outfile, dpi=600, bbox_inches='tight')

@@ -1,0 +1,49 @@
+ocnusp1_ocnusfu1_ocnum1_ocnipsp1_ocnipsfu1_ocnipm1_ocnopsp1_ocnopsfu1_ocnopm1:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_operand_collector_num_units_sp 1 -gpgpu_operand_collector_num_units_sfu
+    1 -gpgpu_operand_collector_num_units_mem 1 -gpgpu_operand_collector_num_in_ports_sp
+    1 -gpgpu_operand_collector_num_in_ports_sfu 1 -gpgpu_operand_collector_num_in_ports_mem
+    1 -gpgpu_operand_collector_num_out_ports_sp 1 -gpgpu_operand_collector_num_out_ports_sfu
+    1 -gpgpu_operand_collector_num_out_ports_mem 1 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4
+ocnusp2_ocnusfu2_ocnum2_ocnipsp1_ocnipsfu1_ocnipm1_ocnopsp1_ocnopsfu1_ocnopm1:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_operand_collector_num_units_sp 2 -gpgpu_operand_collector_num_units_sfu
+    2 -gpgpu_operand_collector_num_units_mem 2 -gpgpu_operand_collector_num_in_ports_sp
+    1 -gpgpu_operand_collector_num_in_ports_sfu 1 -gpgpu_operand_collector_num_in_ports_mem
+    1 -gpgpu_operand_collector_num_out_ports_sp 1 -gpgpu_operand_collector_num_out_ports_sfu
+    1 -gpgpu_operand_collector_num_out_ports_mem 1 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4
+ocnusp3_ocnusfu3_ocnum3_ocnipsp2_ocnipsfu2_ocnipm2_ocnopsp2_ocnopsfu2_ocnopm2:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_operand_collector_num_units_sp 3 -gpgpu_operand_collector_num_units_sfu
+    3 -gpgpu_operand_collector_num_units_mem 3 -gpgpu_operand_collector_num_in_ports_sp
+    2 -gpgpu_operand_collector_num_in_ports_sfu 2 -gpgpu_operand_collector_num_in_ports_mem
+    2 -gpgpu_operand_collector_num_out_ports_sp 2 -gpgpu_operand_collector_num_out_ports_sfu
+    2 -gpgpu_operand_collector_num_out_ports_mem 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4
+ocnusp4_ocnusfu4_ocnum4_ocnipsp2_ocnipsfu2_ocnipm2_ocnopsp2_ocnopsfu2_ocnopm2:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_operand_collector_num_units_sp 4 -gpgpu_operand_collector_num_units_sfu
+    4 -gpgpu_operand_collector_num_units_mem 4 -gpgpu_operand_collector_num_in_ports_sp
+    2 -gpgpu_operand_collector_num_in_ports_sfu 2 -gpgpu_operand_collector_num_in_ports_mem
+    2 -gpgpu_operand_collector_num_out_ports_sp 2 -gpgpu_operand_collector_num_out_ports_sfu
+    2 -gpgpu_operand_collector_num_out_ports_mem 2 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4
+ocnusp5_ocnusfu5_ocnum5_ocnipsp3_ocnipsfu3_ocnipm3_ocnopsp3_ocnopsfu3_ocnopm3:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_operand_collector_num_units_sp 5 -gpgpu_operand_collector_num_units_sfu
+    5 -gpgpu_operand_collector_num_units_mem 5 -gpgpu_operand_collector_num_in_ports_sp
+    3 -gpgpu_operand_collector_num_in_ports_sfu 3 -gpgpu_operand_collector_num_in_ports_mem
+    3 -gpgpu_operand_collector_num_out_ports_sp 3 -gpgpu_operand_collector_num_out_ports_sfu
+    3 -gpgpu_operand_collector_num_out_ports_mem 3 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4
+ocnusp6_ocnusfu6_ocnum6_ocnipsp3_ocnipsfu3_ocnipm3_ocnopsp3_ocnopsfu3_ocnopm3:
+  base_file: $GPGPUSIM_ROOT/configs/GTX480/gpgpusim.config
+  extra_params: -gpgpu_operand_collector_num_units_sp 6 -gpgpu_operand_collector_num_units_sfu
+    6 -gpgpu_operand_collector_num_units_mem 6 -gpgpu_operand_collector_num_in_ports_sp
+    3 -gpgpu_operand_collector_num_in_ports_sfu 3 -gpgpu_operand_collector_num_in_ports_mem
+    3 -gpgpu_operand_collector_num_out_ports_sp 3 -gpgpu_operand_collector_num_out_ports_sfu
+    3 -gpgpu_operand_collector_num_out_ports_mem 3 -gpgpu_pipeline_widths 4,0,2,2,4,0,2,2,4
+run:
+- ocnusp3_ocnusfu3_ocnum3_ocnipsp2_ocnipsfu2_ocnipm2_ocnopsp2_ocnopsfu2_ocnopm2
+- ocnusp1_ocnusfu1_ocnum1_ocnipsp1_ocnipsfu1_ocnipm1_ocnopsp1_ocnopsfu1_ocnopm1
+- ocnusp2_ocnusfu2_ocnum2_ocnipsp1_ocnipsfu1_ocnipm1_ocnopsp1_ocnopsfu1_ocnopm1
+- ocnusp4_ocnusfu4_ocnum4_ocnipsp2_ocnipsfu2_ocnipm2_ocnopsp2_ocnopsfu2_ocnopm2
+- ocnusp6_ocnusfu6_ocnum6_ocnipsp3_ocnipsfu3_ocnipm3_ocnopsp3_ocnopsfu3_ocnopm3
+- ocnusp5_ocnusfu5_ocnum5_ocnipsp3_ocnipsfu3_ocnipm3_ocnopsp3_ocnopsfu3_ocnopm3
