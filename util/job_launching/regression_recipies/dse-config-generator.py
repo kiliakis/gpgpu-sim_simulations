@@ -15,6 +15,8 @@ parser.add_argument('-o', '--outfile', type=str, default='dse-config-output.yml'
 parser.add_argument('-i', '--infile', type=str, default='dse-config-input.yml',
                     help='The output file name.')
 
+def nocommas(x):
+    return str(x).replace(',','')
 
 def cartesianProduct(inlist):
     data = []
@@ -26,11 +28,11 @@ def cartesianProduct(inlist):
         for param, values in entry.items():
             if len(tempdata) == 0:
                 tempdata = [('{} {}'.format(param, x),
-                             '{}{}'.format(shortNames[param], x))
+                             '{}{}'.format(shortNames[param], nocommas(x)))
                             for x in values]
             else:
                 tempdata = [('{} {} {}'.format(t1[0], param, t2),
-                             '{}_{}{}'.format(t1[1], shortNames[param], t2))
+                             '{}_{}{}'.format(t1[1], shortNames[param], nocommas(t2)))
                             for t1 in tempdata for t2 in values]
         data += tempdata
     return data
@@ -46,11 +48,11 @@ def dotProduct(inlist):
         for param, values in entry.items():
             if len(tempdata) == 0:
                 tempdata = [('{} {}'.format(param, x),
-                             '{}{}'.format(shortNames[param], x))
+                             '{}{}'.format(shortNames[param], nocommas(x)))
                             for x in values]
             else:
                 tempdata = [('{} {} {}'.format(t1[0], param, t2),
-                             '{}_{}{}'.format(t1[1], shortNames[param], t2))
+                             '{}_{}{}'.format(t1[1], shortNames[param], nocommas(t2)))
                             for t1, t2 in zip(tempdata, cycle(values))]
         data += tempdata
     return data
