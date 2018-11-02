@@ -92,7 +92,6 @@ global:
         backprop-rodinia-2.0-ft: bp-rod
         bfs-rodinia-2.0-ft: bfs-rod
         hotspot-rodinia-2.0-ft: hs-rod
-        
         heartwall-rodinia-2.0-ft: hw-rod
         kmeans-rodinia-2.0-ft: km-rod
         lud-rodinia-2.0-ft: lud-rod
@@ -101,18 +100,52 @@ global:
         pathfinder-rodinia-2.0-ft: pf-rod
         srad_v2-rodinia-2.0-ft: sr2-rod
         streamcluster-rodinia-2.0-ft: sc-rod
+        BlackScholes-sdk-4.1.15: bs-sdk
+        MonteCarlo-sdk-4.1.15: mc-sdk
+        SobolQRNG-sdk-4.1.15: sq-sdk
+        binomialOptions-sdk-4.1.15: bo-sdk
+        convolutionSeparable-sdk-4.1.15: cs-sdk
+        fastWalshTransform-sdk-4.1.15: fwt-sdk
+        histogram-sdk-4.1.15: hst-sdk
+        mergeSort-sdk-4.1.15: ms-sdk
+        quasirandomGenerator-sdk-4.1.15: qg-sdk
+        reduction-sdk-4.1.15: red-sdk
+        scalarProd-sdk-4.1.15: sp-sdk
+        scan-sdk-4.1.15: sca-sdk
+        sortingNetworks-sdk-4.1.15: sn-sdk
+        transpose-sdk-4.1.15: tra-sdk
+        vectorAdd-sdk-4.1.15: vec-sdk
+        nbody-sdk-4.1.15: nbo-sdk
+        Mandelbrot-sdk-4.1.15: mb-sdk
+        AES-ispass2009-1.0: aes-isp
+        BFS-ispass2009-1.0: bfs-isp
+        LIB-ispass2009-1.0: lib-isp 
+        LPS-ispass2009-1.0: lps-isp
+        MUM-ispass2009-1.0: mum-isp
+        NN-ispass2009-1.0: nn-isp
+        RAY-ispass2009-1.0: ray-isp
+        NQU-ispass2009-1.0: nqu-isp
+        STO-ispass2009-1.0: sto-isp
+        spmv-parboil-0.2: spm-par
+        stencil-parboil-0.2: ste-par
+        tpacf-parboil-0.2: tpac-par
+        sad-parboil-0.2: sad-par
+        histo-parboil-0.2: hst-par
+        sgemm-parboil-0.2: sge-par
+        mri-q-parboil-0.2: mri-par
+        cutcp-parboil-0.2: cut-par
         average: avg
 
 
 subplots_one_line_per_bench.py:
     stats_to_plot:
-        # - "gpgpu_simulation_time(sec)"
         - gpu_tot_sim_cycle
         - gpu_tot_ipc
         - L1D_total_cache_miss_rate
         - L2_total_cache_miss_rate
-        # - W_Occupancy
         - Utilization
+        # - "gpgpu_simulation_time(sec)"
+        # - W_Occupancy
         # - L1I_total_cache_miss_rate
         # - averagemflatency
         # - "L2_BW(GBpersec)"
@@ -162,6 +195,7 @@ subplots_one_line_per_bench.py:
         - nsfu
         - nmu
         - "mxiipw,nspu,nsfu,nmu,pw"
+        - "ocnusp,ocnusfu,ocnum,ocnipsp,ocnipsfu,ocnipm,ocnopsp,ocnopsfu,ocnopm,nrb"
         # - cdl1 
         # - cdl2 
         # - nc
