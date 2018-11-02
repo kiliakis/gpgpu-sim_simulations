@@ -25,19 +25,19 @@ ispass2009-1.0:
             - e 256 ./data/output.bmp ./data/key256.txt 
         - BFS-ispass2009-1.0:
             - ./data/graph65536.txt
-        # - DG-ispass2009-1.0:
         - LIB-ispass2009-1.0:
             - 
         - LPS-ispass2009-1.0:
-            - 
+            - --nx=100 --ny=100 --nz=100 --repeat=1
         - MUM-ispass2009-1.0:
             - ./data/NC_003997.20k.fna ./data/NC_003997_q25bp.50k.fna
         - NN-ispass2009-1.0:
-            - 28
-        - NQU-ispass2009-1.0:
-            - 
+            - "28"
         - RAY-ispass2009-1.0:
-            - 32 32
+            - "64 64"
+        - NQU-ispass2009-1.0:
+            - "16"
         - STO-ispass2009-1.0:
             - 
         # - WP-ispass2009-1.0:
+        # - DG-ispass2009-1.0:
