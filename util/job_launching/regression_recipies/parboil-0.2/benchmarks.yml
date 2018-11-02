@@ -41,5 +41,5 @@ parboil-0.2:
             - -i ./data/small/input/matrix1.txt,./data/small/input/matrix2.txt,./data/small/input/matrix2t.txt
         - mri-q-parboil-0.2:
             - -i ./data/small/input/32_32_32_dataset.bin
-        - cutcp-parboil-0.2:
-            - -i ./data/small/input/watbox.sl40.pqr
+        # - cutcp-parboil-0.2:
+        #     - -i ./data/small/input/watbox.sl40.pqr

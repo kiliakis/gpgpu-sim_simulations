@@ -1068,7 +1068,7 @@ void runAutoTest(int argc, char **argv)
 //Performance Test
 void runPerfTest(int argc, char **argv)
 {
-	int N = 10;
+	int N = 1;
 	// initialize Data for CUDA
     initData(argc, argv);
 

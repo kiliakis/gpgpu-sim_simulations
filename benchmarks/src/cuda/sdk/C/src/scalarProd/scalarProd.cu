@@ -66,7 +66,7 @@ const int VECTOR_N = 256;
 //Number of elements per vector; arbitrary, 
 //but strongly preferred to be a multiple of warp size
 //to meet memory coalescing constraints
-const int ELEMENT_N = 4096;
+const int ELEMENT_N = 2048;
 //Total number of data elements
 const int    DATA_N = VECTOR_N * ELEMENT_N;
 

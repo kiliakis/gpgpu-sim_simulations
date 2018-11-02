@@ -27,7 +27,7 @@ int main(int argc, char** argv){
     uint *d_SrcKey, *d_SrcVal, *d_BufKey, *d_BufVal, *d_DstKey, *d_DstVal;
     uint hTimer;
 
-    const uint   N = 1 * 1048576 / 4;
+    const uint   N = 1 * 1048576 / 16;
     const uint DIR = 1;
     const uint numValues = 65536;
 

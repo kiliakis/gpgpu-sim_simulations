@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     uint *d_Input, *d_Output;
     uint *h_Input, *h_OutputCPU, *h_OutputGPU;
     uint hTimer;
-    const uint N = 13 * 1048576 / 64;
+    const uint N = 13 * 1048576 / 1024;
 
     shrLog("Allocating and initializing host arrays...\n");
         cutCreateTimer(&hTimer);
