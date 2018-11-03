@@ -56,12 +56,24 @@ if __name__ == '__main__':
 
     # generate the figdir, groups input data, ready to be plotted
     figdir = {}
+    bench_suite = ''
     for metric in datadir.keys():
         if metric not in locyc['stats_to_plot']:
             continue
         if metric not in figdir:
             figdir[metric] = {}
         for app in datadir[metric].keys():
+            if 'sdk-4.1.15' in app:
+                bench_suite = 'sdk'
+            elif 'ispass2009-1.0' in app:
+                bench_suite = 'ispass'
+            elif 'rodinia-2.0-ft' in app:
+                bench_suite = 'rodinia'
+            elif 'parboil-0.2' in app:
+                bench_suite = 'parboil'
+            else:
+                print('Benchmark suite {} not recognized.')
+                exit(-1)
             for conf in datadir[metric][app].keys():
                 matches = re.compile('([a-z]+)([0-9]*:?[0-9]*)').findall(conf)
                 if not matches:
@@ -89,15 +101,15 @@ if __name__ == '__main__':
             outdir = args.outdir + '/' + globyc['knobs'][knob1]
             if not os.path.exists(outdir):
                 os.makedirs(outdir)
-            fig = plt.figure(
-                figsize=(locyc['figsize']['w'], locyc['figsize']['h']))
+            rows = locyc[bench_suite]['grid']['rows']
+            cols = locyc[bench_suite]['grid']['columns']
+            figsize = (2.* cols, 2.*rows)
+            fig = plt.figure(figsize=figsize)
             fig.suptitle('Knob:{}, Stat:{}'.format(globyc['knobs'][knob1],
                                                    globyc['stat_shorts'][metric]))
             outfile = '{}/{}-{}.jpeg'.format(outdir,
                                              globyc['stat_shorts'][metric],
                                              globyc['knobs'][knob1])
-            rows = locyc['grid']['rows']
-            cols = locyc['grid']['columns']
             gs = gridspec.GridSpec(rows, cols)
             idx = 0
             yavg_l = []
