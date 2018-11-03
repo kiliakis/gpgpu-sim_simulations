@@ -115,6 +115,9 @@ if __name__ == '__main__':
                 #     ax.set_ylabel(metric)
                 # if idx//cols == rows-1:
                 #     ax.set_xlabel(knob)
+                if len(y) == 0:
+                    print('Empty values for {}:{}:{}'.format(metric, knob, app))
+                    continue
                 y = y / y[0]
                 yavg_l.append((x, y))
                 ax.plot(x, y, label=globyc['bench_shorts']
