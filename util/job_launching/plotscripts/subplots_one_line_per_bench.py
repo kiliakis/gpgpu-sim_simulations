@@ -39,6 +39,8 @@ if __name__ == '__main__':
     # read cmd line options
     args = parser.parse_args()
 
+    args.outdir = '{}/{}/'.format(args.outdir,
+                                  args.infile.split('stats-')[1].split('.csv')[0])
     if not os.path.exists(args.outdir):
         os.makedirs(args.outdir)
 
@@ -103,7 +105,7 @@ if __name__ == '__main__':
                 os.makedirs(outdir)
             rows = locyc[bench_suite]['grid']['rows']
             cols = locyc[bench_suite]['grid']['columns']
-            figsize = (2.* cols, 2.*rows)
+            figsize = (2. * cols, 2.*rows)
             fig = plt.figure(figsize=figsize)
             fig.suptitle('Knob:{}, Stat:{}'.format(globyc['knobs'][knob1],
                                                    globyc['stat_shorts'][metric]))

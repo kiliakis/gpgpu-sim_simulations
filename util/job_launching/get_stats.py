@@ -58,15 +58,21 @@ parser.add_option("-s", "--stats_yml", dest="stats_yml", default="",
                   help="The yaml file that defines the stats you want to collect." +
                        " by default it uses stats/example_stats.yml")
 
-parser.add_option("-f", "--file", dest="file", default="stdout",
+# parser.add_option("-f", "--file", dest="file", default="stdout",
+#                   help="Print to the stdout or save to file.")
+parser.add_option("-f", "--file", dest="file", action="store_true",
                   help="Print to the stdout or save to file.")
-
 
 (options, args) = parser.parse_args()
 options.logfile = options.logfile.strip()
 options.run_dir = options.run_dir.strip()
 options.sim_name = options.sim_name.strip()
-options.file = options.file.strip()
+if not options.file:
+    options.file = "stdout"
+else:
+    temp = options.logfile.split('sim_log.')[1].split('.txt')[0]
+    options.file = '{}results/csvfiles/stats-{}.csv'.format(this_directory, temp)
+# options.file = options.file.strip()
 
 cuda_version = common.get_cuda_version()
 options.run_dir = common.dir_option_test(options.run_dir, this_directory + ("../../sim_run_%s/" % cuda_version),
