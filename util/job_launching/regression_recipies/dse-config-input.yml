@@ -32,12 +32,13 @@ configs:
     base_params:
         "-gpgpu_num_dp_units": 0
     unique_params: 
-        - "-gpgpu_max_insn_issue_per_warp": [1, 2, 3, 4, 5]
+        - "-gpgpu_max_insn_issue_per_warp": [1, 2]
           "-gpgpu_num_sp_units": [4]
           # "-gpgpu_num_dp_units": [0]
           "-gpgpu_num_sfu_units": [2]
           "-gpgpu_num_mem_units": [2]
           "-gpgpu_pipeline_widths": ["4,0,2,2,4,0,2,2,4"]
+          "-gpgpu_shader_core_pipeline": ["1024:32", "512:32"]
 
             # "-gpgpu_num_sched_per_core": [2]
 

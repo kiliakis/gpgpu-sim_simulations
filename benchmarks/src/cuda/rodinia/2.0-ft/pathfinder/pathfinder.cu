@@ -22,40 +22,69 @@ char* goldfile;
 void
 init(int argc, char** argv)
 {
-	if(argc==5){
-		cols = atoi(argv[1]);
-		rows = atoi(argv[2]);
+	if(argc==5){
+
+		cols = atoi(argv[1]);
+
+		rows = atoi(argv[2]);
+
 		pyramid_height=atoi(argv[3]);
 		goldfile = argv[4];
 	}else{
                 printf("Usage: dynproc row_len col_len pyramid_height\n");
                 exit(0);
         }
-	data = new int[rows*cols];
-	wall = new int*[rows];
-	for(int n=0; n<rows; n++)
-		wall[n]=data+cols*n;
-	result = new int[cols];
-	
-	int seed = M_SEED;
-	srand(seed);
-
-	for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            wall[i][j] = rand() % 10;
-        }
-    }
-#ifdef BENCH_PRINT
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            printf("%d ",wall[i][j]) ;
-        }
-        printf("\n") ;
-    }
+	data = new int[rows*cols];
+
+	wall = new int*[rows];
+
+	for(int n=0; n<rows; n++)
+
+		wall[n]=data+cols*n;
+
+	result = new int[cols];
+
+	
+
+	int seed = M_SEED;
+
+	srand(seed);
+
+
+
+	for (int i = 0; i < rows; i++)
+
+    {
+
+        for (int j = 0; j < cols; j++)
+
+        {
+
+            wall[i][j] = rand() % 10;
+
+        }
+
+    }
+
+#ifdef BENCH_PRINT
+
+    for (int i = 0; i < rows; i++)
+
+    {
+
+        for (int j = 0; j < cols; j++)
+
+        {
+
+            // printf("%d ",wall[i][j]) ;
+            ;
+
+        }
+
+        // printf("\n") ;
+
+    }
+
 #endif
 }
 
@@ -212,19 +241,21 @@ void run(int argc, char** argv)
     cudaMemcpy(result, gpuResult[final_ret], sizeof(int)*cols, cudaMemcpyDeviceToHost);
 
 
-#ifdef BENCH_PRINT
+#ifdef BENCH_PRINT
+
 	FILE* ofile = fopen("result.txt", "w");
 	for (int i = 0; i < cols; i++){
-		printf("%d ",data[i]);
+		// printf("%d ",data[i]);
 		fprintf(ofile, "%d ",data[i]);
 	}
-	printf("\n");
+	// printf("\n");
 	fprintf(ofile, "\n");
 	for (int i = 0; i < cols; i++){
-		printf("%d ",result[i]);
+		// printf("%d ",result[i]);
 		fprintf(ofile, "%d ",result[i]);
 	}
-	printf("\n") ;
+	// printf("\n") ;
+
 	fprintf(ofile, "\n") ;
 	fclose(ofile);
 

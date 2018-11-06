@@ -23,7 +23,7 @@ rodinia_2.0-ft:
     data_dirs: "../../benchmarks/data_dirs/cuda/rodinia/2.0-ft/"
     execs:
         - backprop-rodinia-2.0-ft:
-            - 4096 ./data/result-4096.txt
+            - 8192 ./data/result-8192.txt
         - bfs-rodinia-2.0-ft:
             - ./data/graph4096.txt ./data/graph4096-result.txt
         - hotspot-rodinia-2.0-ft:
@@ -33,13 +33,13 @@ rodinia_2.0-ft:
         - kmeans-rodinia-2.0-ft:
             - -i data/400.txt -g data/400-result.txt -o
         - lud-rodinia-2.0-ft:
-            - -v -b -i ./data/64.dat
+            - -v -b -i ./data/256.dat
         - nw-rodinia-2.0-ft:
-            - 128 10 ./data/result_128_10.txt
+            - 256 10 ./data/result_256_10.txt
         - nn-rodinia-2.0-ft:
             - ./data/filelist_4 3 30 90 ./data/filelist_4_3_30_90-result.txt
         - pathfinder-rodinia-2.0-ft:
-            - 1000 20 5 ./data/result_1000_20_5.txt
+            - 10000 100 50 ./data/result_10000_100_50.txt
         - srad_v2-rodinia-2.0-ft:
             - ./data/matrix128x128.txt 1 150 1 100 .5 2 ./data/result_matrix128x128_1_150_1_100_.5_2.txt
         - streamcluster-rodinia-2.0-ft:
