@@ -208,6 +208,7 @@ subplots_one_line_per_bench.py:
         - nsfu
         - nmu
         - "mxiipw,nspu,nsfu,nmu,pw"
+        - "mxiipw,nspu,nsfu,nmu,pw,scp"
         - "ocnusp,ocnusfu,ocnum,ocnipsp,ocnipsfu,ocnipm,ocnopsp,ocnopsfu,ocnopm,nrb"
         # - cdl1 
         # - cdl2 
